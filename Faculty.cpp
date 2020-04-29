@@ -1,6 +1,5 @@
 #include "Faculty.h"
 
-using namespace std;
 
 Faculty::Faculty(){
   // m_ID = 0;
@@ -12,9 +11,9 @@ Faculty::Faculty(){
 
 Faculty::Faculty(int id, string name, string level, string dept, int advisees){
   : Person(id, name, level); //I have no idea what I'm doing
-  //m_ID = id;
-  //m_name = name;
-  //m_level = level;
+  m_ID = id;
+  m_name = name;
+  m_level = level;
   m_department = dept;
   m_temp = advisees;//are we going to pass in a linkedList?
 }

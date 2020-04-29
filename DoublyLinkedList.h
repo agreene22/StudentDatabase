@@ -1,6 +1,6 @@
 /* Anna Greene - 2314663
   Brandon Kleinman - 2291703
-  Assignment 4 - Registrar Office Simulation
+  Assignment 5 - Student Database
   Doubly Linked List class to build a template list that can hold data of any type
  */
 

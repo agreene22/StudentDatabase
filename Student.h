@@ -2,7 +2,7 @@
 
 using namespace std;
 
-class Student : Person{
+class Student : public Person {
 
 public:
   Student();

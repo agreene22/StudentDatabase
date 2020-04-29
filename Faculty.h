@@ -1,10 +1,10 @@
-#include "Person.h"
+// #include "Person.h"
 #include "DoublyLinkedList.h"
 #include "Student.h"
 
 using namespace std;
 
-class Faculty : Person{
+class Faculty : public Person {
 
 public:
   Faculty();

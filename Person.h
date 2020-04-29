@@ -14,7 +14,7 @@ public:
   string getLevel();
 
 
-private:
+protected:
   int m_ID;
   string m_name;
   string m_level;
