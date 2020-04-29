@@ -36,6 +36,6 @@ int Student::getAdvisor(){
   return m_advisor;
 }
 
-void Student::setAdvisor(int advisorID){
+void Student::setAdvisor(int advisorID){ // should we do this or take in the advisor and then do getID and set it to that number
   m_advisor = advisorID;
 }
