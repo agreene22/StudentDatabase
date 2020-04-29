@@ -3,17 +3,18 @@
 using namespace std;
 
 Faculty::Faculty(){
-  m_ID = 0;
-  m_name = "";
-  m_level = "";
+  // m_ID = 0;
+  // m_name = "";
+  // m_level = "";
   m_department = "";
   m_advisees = new DoublyLinkedList<int>;//does this pointer arithmetic work out?
 }
 
 Faculty::Faculty(int id, string name, string level, string dept, int advisees){
-  m_ID = id;
-  m_name = name;
-  m_level = level;
+  : Person(id, name, level); //I have no idea what I'm doing
+  //m_ID = id;
+  //m_name = name;
+  //m_level = level;
   m_department = dept;
   m_temp = advisees;//are we going to pass in a linkedList?
 }

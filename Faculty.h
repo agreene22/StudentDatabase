@@ -8,7 +8,7 @@ class Faculty : Person{
 
 public:
   Faculty();
-  Faculty(int id, string name, string level, string dept, int advisees);
+  Faculty(int id, string name, string level, string dept, int advisees) : Person(id, name, level);
   //advisees needs to be changed to a linkedList
   ~Faculty();
 
