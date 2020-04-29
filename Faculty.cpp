@@ -2,7 +2,6 @@
 
 
 Faculty::Faculty(){
-  : Person();
   m_ID = 0;
   m_name = "";
   m_level = "";
@@ -11,7 +10,6 @@ Faculty::Faculty(){
 }
 
 Faculty::Faculty(int id, string name, string level, string dept, int advisees){
-  : Person(id, name, level); //I have no idea what I'm doing
   m_ID = id;
   m_name = name;
   m_level = level;

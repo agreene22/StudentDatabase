@@ -10,12 +10,12 @@ using namespace std;
 template <typename T>
 class ListNode{
 public:
-  T* data; // Pointer to the data and its next and previous nodes
+  T data; // Pointer to the data and its next and previous nodes //i took out the pointer
   ListNode<T> *next;
   ListNode<T> *prev;
 
   ListNode(); //constructor
-  ListNode(T* d); //overloaded constructor
+  ListNode(T d); //overloaded constructor
   ~ListNode();
 };
 
@@ -29,8 +29,8 @@ ListNode<T>::ListNode(){
 
 // overloaded constructor
 template <typename T>
-ListNode<T>::ListNode(T* d){
-  data = d; // setting data pointer to parameter
+ListNode<T>::ListNode(T d){
+  data = d; // setting data pointer to parameter //took out the pointer for now
   next = NULL;
   prev = NULL;
 }

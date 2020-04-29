@@ -12,6 +12,10 @@ Person::Person(int id, string name, string level){
   m_level = level;
 }
 
+Person::~Person(){
+  
+}
+
 int Person::getID(){
   return m_ID;
 }

@@ -14,7 +14,7 @@ public:
   ~DoublyLinkedList(); // destructor
 
   void insertFront(T* d); // insert functions
-  void insertBack(T* d);
+  void insertBack(T d);
   T* removeFront(); // remove functions
   // T removeBack();
   T* accessAtPos(int pos);
@@ -92,7 +92,7 @@ void DoublyLinkedList<T>::insertFront(T* d){
 
 // Insert back function which takes in a pointer to a node
 template <typename T>
-void DoublyLinkedList<T>::insertBack(T* d){
+void DoublyLinkedList<T>::insertBack(T d){
   ListNode<T> *node = new ListNode<T>(d); // creating new node
 
   if(isEmpty()){ // if the list is empty set the front pointer to the node
