@@ -6,6 +6,7 @@ class Person{
 
 public:
   Person();
+  Person(int id, string name, string level);
   ~Person();
 
   //Accessors

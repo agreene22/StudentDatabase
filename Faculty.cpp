@@ -2,9 +2,10 @@
 
 
 Faculty::Faculty(){
-  // m_ID = 0;
-  // m_name = "";
-  // m_level = "";
+  : Person();
+  m_ID = 0;
+  m_name = "";
+  m_level = "";
   m_department = "";
   m_advisees = new DoublyLinkedList<int>;//does this pointer arithmetic work out?
 }

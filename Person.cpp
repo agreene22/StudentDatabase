@@ -1,5 +1,11 @@
 #include "Person.h"
 
+Person::Person(){
+  m_ID = 0;
+  m_name = "";
+  m_level = "";
+}
+
 Person::Person(int id, string name, string level){
   m_ID = id;
   m_name = name;
