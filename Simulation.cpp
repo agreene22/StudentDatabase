@@ -1,0 +1,163 @@
+#include "Simulation.h"
+#include <fstream>
+
+Simulation::Simulation(){
+  studentTree = new BST<Student>();
+  facultyTree = new BST<Faculty>();
+}
+
+Simulation::~Simulation(){
+  delete studentTree;
+  delete facultyTree;
+}
+
+void Simulation::setTrees(){
+  // NEED TO DO THIS
+  // there will be file reading
+}
+
+int Simulation::Menu(){ // should come up with more choices because he said we'd get more credit lol
+  int choice = 0;
+
+  cout << "Enter the number corresponding to the desired task: " << endl;
+  cout << "1. Print all students and their information (sorted by ascending id #)" << endl;
+  cout << "2. Print all faculty and their information (sorted by ascending id #)" << endl;
+  cout << "3. Find and display student information given the students id" << endl;
+  cout << "4. Find and display faculty information given the faculty id" << endl;
+  cout << "5. Given a student’s id, print the name and info of their faculty advisor" << endl;
+  cout << "6. Given a faculty id, print ALL the names and info of his/her advisees." << endl;
+  cout << "7. Add a new student" << endl;
+  cout << "8. Delete a student given the id" << endl;
+  cout << "9. Add a new faculty member" << endl;
+  cout << "10. Delete a faculty member given the id." << endl;
+  cout << "11. Change a student’s advisor given the student id and the new faculty id." << endl;
+  cout << "12. Remove an advisee from a faculty member given the ids" << endl;
+  cout << "13. Rollback" << endl;
+  cout << "14. Exit" << endl;
+
+  cin >> choice;
+  while(choice < 1 || choice > 14){
+    cout << "Invalid entry. Please enter a valid task number" << endl;
+    cin >> choice;
+  }
+
+  return choice;
+}
+
+void Simulation::Simulate(int choice){
+  int id = 0;
+  int studentID = 0;
+  int facultyID = 0;
+  switch (choice) {
+    case 1:
+      printStudents();
+      break;
+    case 2:
+      printFaculty();
+      break;
+    case 3:
+      cout << "Enter the ID of the student: " << endl;
+      cin >> id;
+      findStudent(id);
+      break;
+    case 4:
+      cout << "Enter the ID of the faculty member: " << endl;
+      cin >> id;
+      findFaculty(id);
+      break;
+    case 5:
+      cout << "Enter the student ID number: " << endl;
+      cin >> studentID;
+      getStudentAdvisor(studentID);
+      break;
+    case 6:
+      cout << "Enter the faculty ID number: " << endl;
+      cin >> facultyID;
+      getAdvisorList(facultyID);
+      break;
+    case 7:
+      addStudent();
+      break;
+    case 8:
+      cout << "Enter the student ID number: " << endl;
+      cin >> studentID;
+      deleteStudent(studentID);
+      break;
+    case 9:
+      addFaculty();
+      break;
+    case 10:
+      cout << "Enter the faculty ID number: " << endl;
+      cin >> id;
+      deleteFaculty(id);
+      break;
+    case 11:
+      cout << "Enter the student ID number: " << endl;
+      cin >> studentID;
+      cout << "Enter the faculty ID number: " << endl;
+      cin >> facultyID;
+      changeAdvisor(studentID, facultyID);
+      break;
+    case 12:
+      cout << "Enter the student ID number: " << endl;
+      cin >> studentID;
+      cout << "Enter the faculty ID number: " << endl;
+      cin >> facultyID;
+      removeAdvisee(studentID, facultyID);
+      break;
+    case 13:
+      Rollback();
+      break;
+    case 14:
+      cout << "Exiting program." << endl;
+      exit(1); // will exit the program
+      break;
+  }
+}
+
+void Simulation::printStudents(){
+  TreeNode<Student>* root = studentTree->getRoot();
+  studentTree->printTree(root); // needs to take in root but im not quite sure how to do that
+}
+
+void Simulation::printFaculty(){
+  TreeNode<Faculty>* root = facultyTree->getRoot();
+  facultyTree->printTree(root);
+}
+
+void Simulation::findStudent(int id){
+  Student currStudent = studentTree->search(id);
+  // cout << id << endl; // should we display their ID number? bc its given
+  cout << currStudent.getName() << endl;
+  cout << currStudent.getLevel() << endl;
+  cout << currStudent.getMajor() << endl;
+  cout << currStudent.getGPA() << endl;
+  cout << currStudent.getAdvisor() << endl;
+}
+
+void Simulation::findFaculty(int id){
+  Faculty currFaculty = facultyTree->search(id);
+  // cout << id << endl; // should we display their ID number? bc its given
+  cout << currFaculty.getName() << endl;
+  cout << currFaculty.getLevel() << endl;
+  cout << currFaculty.getDepartment() << endl;
+  cout << "Faculty's Advisees: " << endl;
+  currFaculty.printAdvisees(); // will print their ID numbers
+}
+
+void Simulation::getStudentAdvisor(int studentID){
+  int advisorID = 0;
+  Student currStudent = studentTree->search(studentID);
+  advisorID = currStudent.getAdvisor();
+  findFaculty(advisorID);
+}
+
+void Simulation::getAdvisorList(int facultyID){
+  Faculty currFaculty = facultyTree->search(facultyID); // all these searches seem inefficient but I'm not sure how else to do it
+  DoublyLinkedList<int>* students = currFaculty.getAdvisees();
+  for(int i = 0; i < students->getSize(); ++i){
+    int studentID = students->accessAtPos(i);
+    Student* currStudent ;
+    findStudent(currStudent->getID());
+  }
+}

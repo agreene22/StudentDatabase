@@ -14,14 +14,14 @@ public:
 
   string getDepartment();
 
-
+  DoublyLinkedList<int>* getAdvisees();
   void addAdvisee(Student* s);
   void printAdvisees();
 
 
 private:
   string m_department;
-  int m_temp;
+  int m_temp; // what's this?
   DoublyLinkedList<int>* m_advisees;
 
 };

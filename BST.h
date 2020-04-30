@@ -7,11 +7,12 @@ class BST{
 public:
   BST();
   ~BST();
-  //virtual ~BST() - when working with template Class
 
-  void insert(T value); // which in this example is also our key
-  bool search(T value);
-  bool deleteNode(T k);
+  TreeNode<T>* getRoot();
+
+  void insert(int key, T value);
+  T search(int key);
+  bool deleteNode(int k);
 
   bool isEmpty();
   TreeNode<T>* getMin();
@@ -30,12 +31,16 @@ BST<T>::BST(){
 
 template <typename T>
 BST<T>::~BST(){
-  //as always lets build some character
   delete root;
 }
 
 template <typename T>
-void BST<T>::printTree(TreeNode<T> *node){ // O(N)
+TreeNode<T>* BST<T>::getRoot(){
+  return root;
+}
+
+template <typename T>
+void BST<T>::printTree(TreeNode<T> *node){
   if(node == NULL){
     return;
   }
@@ -55,7 +60,7 @@ TreeNode<T>* BST<T>::getMax(){
   while(curr->right != NULL){
     curr = curr->right;
   }
-  return curr; //curr->data or curr->key you can return what you want
+  return curr->key;
 }
 
 template <typename T>
@@ -67,7 +72,7 @@ TreeNode<T>* BST<T>::getMin(){
   while(curr->left != NULL){
     curr = curr->left;
   }
-  return curr;
+  return curr->key;
 }
 
 template <typename T>
@@ -76,20 +81,20 @@ bool BST<T>::isEmpty(){
 }
 
 template <typename T>
-void BST<T>::insert(T value){
+void BST<T>::insert(int key, T value){
 
   if(search(value)){
     cout << "value already exists" << endl;
     return;
   }
-  TreeNode<T> *node = new TreeNode<T>(value);
+  TreeNode<T> *node = new TreeNode<T>(key, value);
 
   if(isEmpty()){
     //empty tree
     root = node;
   }else{
     //not an empty tree
-    TreeNode<T> *curr = root; //start at the root
+    TreeNode<T> *curr = root;
     TreeNode<T> *parent;
 
     while(true){
@@ -115,31 +120,33 @@ void BST<T>::insert(T value){
 }
 
 template <typename T>
-bool BST<T>::search(T value){
+T BST<T>::search(int key){ // may need to return pointer depending on what is in tree
   if(isEmpty())
-    return false;
+  cout << "Empty Database." << endl;
+  // NEED TO EXIT HERE BUT IDK WHAT TO RETURN
   else{
     //its not an empty tree
-    TreeNode<T> *current = root;
+    TreeNode<T>* current = root;
 
-    while(current->key != value){
-      if(value < current->key){
+    while(current->key != key){
+      if(key < current->key){
         current = current->left;
       }else{
         current = current->right;
       }
 
-      if(current == NULL){ // we didn't find the value
-        return false;
+      if(current == NULL){ // didn't find the value
+        cout << "Value not found." << endl;
+        // NEED TO EXIT HERE BUT IDK WHAT TO RETURN
       }
     }
 
-    return true;
+    return current->value;
   }
 }
 
 template <typename T>
-bool BST<T>::deleteNode(T k){
+bool BST<T>::deleteNode(int k){
   if(isEmpty()){
     return false;
   }
@@ -163,7 +170,6 @@ bool BST<T>::deleteNode(T k){
     }
   }
 
-  //if we make it here, we found the value now lets proceed to delete
   if(current->left == NULL && current->right == NULL){
     //then we have a leaf node
     if(current == root){
@@ -185,7 +191,6 @@ bool BST<T>::deleteNode(T k){
     }
   }else if(current->right == NULL){ // no left child so it must be right
     //^this else if determines position of children of node to be deleted
-    //these branching statements identify position of node to be deleted
     if(current == root){
       root = current->right;
     }else if(isLeft){
@@ -203,7 +208,6 @@ bool BST<T>::deleteNode(T k){
     else
       parent->right = successor;
 
-    //connect/link successor to current's(d) left child
     successor->left = current->left;
 
     return true;
@@ -211,8 +215,7 @@ bool BST<T>::deleteNode(T k){
 }
 
 template <typename T>
-TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){
-  // the parameter d represents the node to be deleted
+TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){ // the parameter d represents the node to be deleted
   TreeNode<T> *current = d->right;
   TreeNode<T> *sp = d;
   TreeNode<T> *successor = d;
