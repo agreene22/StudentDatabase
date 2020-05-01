@@ -12,8 +12,8 @@ Simulation::~Simulation(){
 }
 
 void Simulation::setTrees(){
-  // NEED TO DO THIS
-  // there will be file reading
+  Student s1(1,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
+  studentTree->insert(s1.getID(),s1);
 }
 
 int Simulation::Menu(){ // should come up with more choices because he said we'd get more credit lol
@@ -76,37 +76,37 @@ void Simulation::Simulate(int choice){
       getAdvisorList(facultyID);
       break;
     case 7:
-      addStudent();
+      // addStudent();
       break;
     case 8:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
-      deleteStudent(studentID);
+      // deleteStudent(studentID);
       break;
     case 9:
-      addFaculty();
+      // addFaculty();
       break;
     case 10:
       cout << "Enter the faculty ID number: " << endl;
       cin >> id;
-      deleteFaculty(id);
+      // deleteFaculty(id);
       break;
     case 11:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
-      changeAdvisor(studentID, facultyID);
+      // changeAdvisor(studentID, facultyID);
       break;
     case 12:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
-      removeAdvisee(studentID, facultyID);
+      // removeAdvisee(studentID, facultyID);
       break;
     case 13:
-      Rollback();
+      // Rollback();
       break;
     case 14:
       cout << "Exiting program." << endl;
@@ -157,7 +157,7 @@ void Simulation::getAdvisorList(int facultyID){
   DoublyLinkedList<int>* students = currFaculty.getAdvisees();
   for(int i = 0; i < students->getSize(); ++i){
     int studentID = students->accessAtPos(i);
-    Student* currStudent ;
-    findStudent(currStudent->getID());
+    Student currStudent = studentTree->search(studentID);
+    findStudent(currStudent.getID());
   }
 }

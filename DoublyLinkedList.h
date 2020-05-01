@@ -17,7 +17,7 @@ public:
   void insertBack(T d);
   T* removeFront(); // remove functions
   // T removeBack();
-  T* accessAtPos(int pos);
+  T accessAtPos(int pos);
   T remove(T value);
   int search(T val); //will return position of node depending where it is in the list
   T removeAtPos(int pos);
@@ -135,13 +135,13 @@ T* DoublyLinkedList<T>::removeFront(){
 
 // Access at position returns a pointer to a node's data and takes in the position as a parameter
 template <typename T>
-T* DoublyLinkedList<T>::accessAtPos(int pos){
+T DoublyLinkedList<T>::accessAtPos(int pos){
   ListNode<T> *curr = front; // creating node pointer to front
   int idx = 0; // declare and initialize index variable
 
   while(curr != NULL){ // iterate through the list
     if(idx == pos){ // when the position is found
-      T* temp = curr->data; // store data of node into temp veriable
+      T temp = curr->data; // store data of node into temp veriable
 
       return temp; // return data from node
     }

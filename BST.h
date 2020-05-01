@@ -99,7 +99,7 @@ void BST<T>::insert(int key, T value){
 
     while(true){
       parent = curr;
-      if(value < curr->key){
+      if(value.getID() < curr->key){ //i'm really not sure if we should store them at students or pointers
         //go left
         curr = curr->left;
         if(curr == NULL){

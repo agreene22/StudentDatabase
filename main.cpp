@@ -1,17 +1,18 @@
 
-#include "GenStack.h"
-#include "Student.h"
-#include "DoublyLinkedList.h"
-#include "BST.h"
+// #include "GenStack.h"
+// #include "Student.h"
+// #include "DoublyLinkedList.h"
+// #include "BST.h"
+#include "Simulation.h"
 
 int main(int argc, char** argv){
 
-  GenStack<Student*>* stack = new GenStack<Student*>();
+  Simulation* sim = new Simulation();
+  int choice = 0;
 
-  Student* myStudent = new Student();
-
-  stack->push(myStudent);
-  cout << stack->pop() << endl;
+  sim->setTrees();
+  choice = sim->Menu();
+  sim->Simulate(choice);
 
   return 0;
 }
