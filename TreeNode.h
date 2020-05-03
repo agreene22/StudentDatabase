@@ -10,6 +10,8 @@ public:
   ~TreeNode();
   //virtual ~TreeNode(); -when working with a template class
 
+  int getKey();
+
   int key;
   T value;
   TreeNode *left;
@@ -45,4 +47,9 @@ template <typename T>
 TreeNode<T>::~TreeNode(){
   delete right;
   delete left;
+}
+
+template <typename T>
+int TreeNode<T>::getKey(){
+  return key;
 }

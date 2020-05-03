@@ -9,9 +9,11 @@ public:
   ~BST();
 
   TreeNode<T>* getRoot();
+  TreeNode<T>* getRootLeftChild();
 
   void insert(int key, T value);
   T search(int key);
+  bool containsKey(int key);
   bool deleteNode(int k);
 
   bool isEmpty();
@@ -37,6 +39,11 @@ BST<T>::~BST(){
 template <typename T>
 TreeNode<T>* BST<T>::getRoot(){
   return root;
+}
+
+template <typename T>
+TreeNode<T>* BST<T>::getRootLeftChild(){
+  return root->left;
 }
 
 template <typename T>
@@ -82,8 +89,8 @@ bool BST<T>::isEmpty(){
 
 template <typename T>
 void BST<T>::insert(int key, T value){
-
-  if(search(value)){
+  int id = value.getID();
+  if(containsKey(id)){
     cout << "value already exists" << endl;
     return;
   }
@@ -142,6 +149,31 @@ T BST<T>::search(int key){ // may need to return pointer depending on what is in
     }
 
     return current->value;
+  }
+}
+
+template <typename T>
+bool BST<T>::containsKey(int key){ // may need to return pointer depending on what is in tree
+  if(isEmpty())
+  cout << "Empty Database." << endl;
+  // NEED TO EXIT HERE BUT IDK WHAT TO RETURN
+  else{
+    //its not an empty tree
+    TreeNode<T>* current = root;
+
+    while(current->key != key){
+      if(key < current->key){
+        current = current->left;
+      }else{
+        current = current->right;
+      }
+
+      if(current == NULL){ // didn't find the value
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 

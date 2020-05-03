@@ -15,7 +15,7 @@ public:
 
   void insertFront(T* d); // insert functions
   void insertBack(T d);
-  T* removeFront(); // remove functions
+  T removeFront(); // remove functions
   // T removeBack();
   T accessAtPos(int pos);
   T remove(T value);
@@ -109,7 +109,7 @@ void DoublyLinkedList<T>::insertBack(T d){
 
 // Remove Front returns a pointer to a node's data
 template <typename T>
-T* DoublyLinkedList<T>::removeFront(){
+T DoublyLinkedList<T>::removeFront(){
   if(isEmpty()){ // if the list is empty give an error message
     cout << "Trying to remove from an empty list" << endl;
     exit(1); // exit the program
@@ -126,7 +126,7 @@ T* DoublyLinkedList<T>::removeFront(){
   front = front->next; // updating pointer for front
   tempNode->next = NULL; // nulling pointers before deletion
   tempNode->prev = NULL;
-  T* temp = tempNode->data; // storing data from node
+  T temp = tempNode->data; // storing data from node
   size--; // decrementing size
   delete tempNode; // delete pointer
 
@@ -160,7 +160,8 @@ T DoublyLinkedList<T>::remove(T value){
     curr = curr->next;
 
     if(curr == NULL){ // the value was not found and NULL is returned
-      return NULL;
+      // return NULL; // can't return null because it's supposed to return an int
+      return 0;
     }
   }
 

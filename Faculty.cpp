@@ -9,12 +9,12 @@ Faculty::Faculty(){
   m_advisees = new DoublyLinkedList<int>;//does this pointer arithmetic work out?
 }
 
-Faculty::Faculty(int id, string name, string level, string dept, int advisees){
+Faculty::Faculty(int id, string name, string level, string dept, DoublyLinkedList<int>* advisees){
   m_ID = id;
   m_name = name;
   m_level = level;
   m_department = dept;
-  m_temp = advisees;//are we going to pass in a linkedList?
+  m_advisees = advisees;//are we going to pass in a linkedList?
 }
 
 Faculty::~Faculty(){
@@ -35,4 +35,8 @@ DoublyLinkedList<int>* Faculty::getAdvisees(){
 
 void Faculty::printAdvisees(){
   m_advisees->printList();
+}
+
+void Faculty::removeAdvisee(int studentID){
+  m_advisees->remove(studentID);
 }

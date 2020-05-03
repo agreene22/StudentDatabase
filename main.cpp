@@ -11,8 +11,13 @@ int main(int argc, char** argv){
   int choice = 0;
 
   sim->setTrees();
-  choice = sim->Menu();
-  sim->Simulate(choice);
+
+  do {
+    cout << endl;
+    choice = sim->Menu();
+    sim->Simulate(choice);
+  } while(true);
+
 
   return 0;
 }

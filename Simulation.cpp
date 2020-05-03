@@ -12,7 +12,7 @@ Simulation::~Simulation(){
 }
 
 void Simulation::setTrees(){
-  Student s1(1,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
+  Student s1(50,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
   studentTree->insert(s1.getID(),s1);
 }
 
@@ -76,20 +76,20 @@ void Simulation::Simulate(int choice){
       getAdvisorList(facultyID);
       break;
     case 7:
-      // addStudent();
+      addStudent();
       break;
     case 8:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
-      // deleteStudent(studentID);
+      deleteStudent(studentID);
       break;
     case 9:
-      // addFaculty();
+      addFaculty();
       break;
     case 10:
       cout << "Enter the faculty ID number: " << endl;
-      cin >> id;
-      // deleteFaculty(id);
+      cin >> facultyID;
+      deleteFaculty(facultyID);
       break;
     case 11:
       cout << "Enter the student ID number: " << endl;
@@ -160,4 +160,82 @@ void Simulation::getAdvisorList(int facultyID){
     Student currStudent = studentTree->search(studentID);
     findStudent(currStudent.getID());
   }
+}
+
+void Simulation::addStudent(){
+  int studentID = 0;
+  string name = "";
+  string level = "";
+  string major = "";
+  double gpa = 0.0;
+  int advisor = 0;
+
+  cout << "Enter the following information: " << endl;
+  cout << "Student ID: " << endl;;
+  cin >> studentID;
+  cout << "Name: " << endl;
+  cin >> name;
+  cout << "Level: (Freshman, sophomore, junior, senior)" << endl;
+  cin >> level;
+  cout << "Major: " << endl;
+  cin >> major;
+  cout << "GPA: " << endl;
+  cin >> gpa;
+  cout << "Advisor ID number: " << endl;
+  cin >> advisor;
+
+  Student newStudent(studentID,name,level,major,gpa,advisor);
+  studentTree->insert(studentID,newStudent);
+}
+
+void Simulation::deleteStudent(int studentID){
+  Student currStudent = studentTree->search(studentID);
+  Faculty advisor = facultyTree->search(currStudent.getAdvisor());
+  advisor.removeAdvisee(studentID);
+  studentTree->deleteNode(studentID);
+  // do we need to null the student's node to the advisor before we delete the student?
+}
+
+void Simulation::addFaculty(){
+  int facultyID = 0;
+  string name = "";
+  string level = "";
+  string department = "";
+  DoublyLinkedList<int>* advisees;
+  int studentID = 0;
+
+  cout << "Enter the following information: " << endl;
+  cout << "Faculty ID: " << endl;;
+  cin >> facultyID;
+  cout << "Name: " << endl;
+  cin >> name;
+  cout << "Level: " << endl;
+  cin >> level;
+  cout << "Department: " << endl;
+  cin >> department;
+  while(studentID != -1){
+    cout << "Advisee ID numbers (enter -1 when done): ";
+    cin >> studentID;
+    advisees->insertBack(studentID);
+  }
+
+  Faculty newFaculty(facultyID,name,level,department,advisees);
+  facultyTree->insert(facultyID,newFaculty);
+}
+
+void Simulation::deleteFaculty(int facultyID){
+  Faculty currFaculty = facultyTree->search(facultyID);
+  DoublyLinkedList<int>* advisees = currFaculty.getAdvisees();
+  for(int i = 0; i < advisees->getSize(); ++i){
+    int studentID = advisees->removeFront();
+    Student currStudent = studentTree->search(studentID);
+    if(facultyID == facultyTree->getRoot()->getKey()){
+      int advisorID = facultyTree->getRootLeftChild()->getKey();
+      currStudent.setAdvisor(advisorID);
+    }else{
+      int advisorID = facultyTree->getRoot()->getKey();
+      currStudent.setAdvisor(advisorID); // This won't work if the advisor they are trying to get is the root
+    }
+  }
+  facultyTree->deleteNode(facultyID);
 }

@@ -8,7 +8,7 @@ class Faculty : public Person {
 
 public:
   Faculty();
-  Faculty(int id, string name, string level, string dept, int advisees);
+  Faculty(int id, string name, string level, string dept, DoublyLinkedList<int>* advisees);
   //advisees needs to be changed to a linkedList
   ~Faculty();
 
@@ -17,11 +17,12 @@ public:
   DoublyLinkedList<int>* getAdvisees();
   void addAdvisee(Student* s);
   void printAdvisees();
+  void removeAdvisee(int studentID);
 
 
 private:
   string m_department;
-  int m_temp; // what's this?
+  // int m_temp; // what's this?
   DoublyLinkedList<int>* m_advisees;
 
 };
