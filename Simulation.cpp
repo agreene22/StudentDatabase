@@ -94,9 +94,9 @@ void Simulation::Simulate(int choice){
     case 11:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
-      cout << "Enter the faculty ID number: " << endl;
+      cout << "Enter the new advisor faculty ID number: " << endl;
       cin >> facultyID;
-      // changeAdvisor(studentID, facultyID);
+      changeAdvisor(studentID, facultyID);
       break;
     case 12:
       cout << "Enter the student ID number: " << endl;
@@ -238,4 +238,14 @@ void Simulation::deleteFaculty(int facultyID){
     }
   }
   facultyTree->deleteNode(facultyID);
+}
+
+void Simulation::changeAdvisor(int studentID, int facultyID){
+  Student currStudent = studentTree->search(studentID);
+  int prevAdvisorID = currStudent.getAdvisor();
+  Faculty prevAdvisor = facultyTree->search(prevAdvisorID);
+  prevAdvisor.removeAdvisee(studentID);
+  currStudent.setAdvisor(facultyID);
+  Faculty newAdvisor = facultyTree->search(facultyID);
+  newAdvisor.addAdvisee(studentID);
 }

@@ -25,8 +25,8 @@ string Faculty::getDepartment(){
   return m_department;
 }
 
-void Faculty::addAdvisee(Student* s){
-  m_advisees->insertBack(s->getID());
+void Faculty::addAdvisee(int studentID){
+  m_advisees->insertBack(studentID);
 }
 
 DoublyLinkedList<int>* Faculty::getAdvisees(){

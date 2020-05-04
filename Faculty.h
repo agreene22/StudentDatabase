@@ -15,7 +15,7 @@ public:
   string getDepartment();
 
   DoublyLinkedList<int>* getAdvisees();
-  void addAdvisee(Student* s);
+  void addAdvisee(int studentID);
   void printAdvisees();
   void removeAdvisee(int studentID);
 
