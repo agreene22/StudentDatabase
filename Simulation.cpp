@@ -109,7 +109,7 @@ void Simulation::Simulate(int choice){
       // Rollback();
       break;
     case 14:
-      cout << "Exiting program." << endl;\
+      cout << "Exiting program." << endl;
       //here we need to serialize everything to the file
       exit(0); // will exit the program
       break;
