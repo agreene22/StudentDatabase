@@ -14,10 +14,12 @@ public:
   string getName();
   string getLevel();
 
+  bool isStudent();
 
 protected:
   int m_ID;
   string m_name;
   string m_level;
+  bool m_isStudent;
 
 };

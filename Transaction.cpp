@@ -13,10 +13,10 @@ Transaction::Transaction(string type, Person data){
 }
 
 string Transaction::getPersonType(){
-  //if(//m_person.isStudent()){
+  if(m_person.isStudent()){
     return "Student";
-  //}
-  //return "Faculty";
+  }
+  return "Faculty";
 }
 
 string Transaction::getTransactionType(){

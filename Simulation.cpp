@@ -115,16 +115,24 @@ void Simulation::Simulate(int choice){
       cin >> studentID;
       cout << "Enter the new advisor faculty ID number: " << endl;
       cin >> facultyID;
+      Student s3 = getStudent(studentID);
+      Faculty f3 = getFaculty(s3.getAdvisor());
+      Transaction t5 = Transaction("changeAdvisor", f3); // i feel like this might need both the student and advisor
       changeAdvisor(studentID, facultyID);
       break;
     }
     case 12:
+    {
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
-      // removeAdvisee(studentID, facultyID);
+      Student s4 = getStudent(studentID);
+      Faculty f4 = getFaculty(facultyID);
+      Transaction t6 = Transaction("addAdvisee",f4); // i feel like this might need both the student and advisor
+      removeAdvisee(studentID, facultyID);
       break;
+    }
     case 13:
       // Rollback();
       break;
@@ -269,7 +277,7 @@ void Simulation::deleteFaculty(int facultyID){
       currStudent.setAdvisor(advisorID);
     }else{
       int advisorID = facultyTree->getRoot()->getKey();
-      currStudent.setAdvisor(advisorID); // This won't work if the advisor they are trying to get is the root
+      currStudent.setAdvisor(advisorID);
     }
   }
   facultyTree->deleteNode(facultyID);
@@ -283,4 +291,17 @@ void Simulation::changeAdvisor(int studentID, int facultyID){
   currStudent.setAdvisor(facultyID);
   Faculty newAdvisor = facultyTree->search(facultyID);
   newAdvisor.addAdvisee(studentID);
+}
+
+void Simulation::removeAdvisee(int studentID, int facultyID){
+  Faculty advisor = getFaculty(facultyID);
+  advisor.removeAdvisee(studentID);
+  Student currStudent = getStudent(studentID);
+  if(facultyID == facultyTree->getRoot()->getKey()){
+    int advisorID = facultyTree->getRootLeftChild()->getKey();
+    currStudent.setAdvisor(advisorID);
+  }else{
+    int advisorID = facultyTree->getRoot()->getKey();
+    currStudent.setAdvisor(advisorID);
+  }
 }

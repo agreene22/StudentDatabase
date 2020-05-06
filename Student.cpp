@@ -9,6 +9,7 @@ Student::Student(){
   m_major = "";
   m_GPA = 4.0;//I wish
   m_advisor = 0;
+  m_isStudent = true;
 }
 
 Student::Student(int id, string name, string level, string major, double gpa, int advisor){
@@ -18,6 +19,7 @@ Student::Student(int id, string name, string level, string major, double gpa, in
   m_major = major;
   m_GPA = gpa;
   m_advisor = advisor;
+  m_isStudent = true;
 }
 
 Student::~Student(){
@@ -38,4 +40,16 @@ int Student::getAdvisor(){
 
 void Student::setAdvisor(int advisorID){ // should we do this or take in the advisor and then do getID and set it to that number
   m_advisor = advisorID;
+}
+
+bool operator==(Student& studentOne, Student& studentTwo){
+  return (studentOne.getID() == studentTwo.getID());
+}
+
+bool operator<(Student& studentOne, Student& studentTwo){
+  return (studentOne.getID() < studentTwo.getID());
+}
+
+bool operator>(Student& studentOne, Student& studentTwo){
+  return (studentOne.getID() > studentTwo.getID());
 }

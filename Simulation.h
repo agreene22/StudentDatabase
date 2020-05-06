@@ -27,8 +27,7 @@ public:
   void changeAdvisor(int studentID, int facultyID);
   Student getStudent(int id);
   Faculty getFaculty(int id);
-
-  // void removeAdvisee(int studentID, int facultyID);
+  void removeAdvisee(int studentID, int facultyID);
   // void Rollback(); // not sure what this should take in
 private:
   BST<Student>* studentTree; // should this be a pointer/of pointers to students

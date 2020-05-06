@@ -15,6 +15,7 @@ public:
   int getAdvisor();
 
   void setAdvisor(int advisorID);
+  Person isStudent();
 
 
 private:
