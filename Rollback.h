@@ -6,7 +6,7 @@ class Rollback{
 
 public:
   Rollback();
-  void push(Transaction T);
+  void push(Transaction t);
   Transaction pop();
 
 

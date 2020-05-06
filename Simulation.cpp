@@ -76,19 +76,29 @@ void Simulation::Simulate(int choice){
       getAdvisorList(facultyID);
       break;
     case 7:
-      addStudent();
+      Student s1 = addStudent();
+      Transaction t1 = Transaction("delete", s1);
+      rb->push(t1);
       break;
     case 8:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
+      Student s2 = getStudent(studentID);
+      Transaction t2 = Transaction("add", s2)
+      rb->push(t2);
       deleteStudent(studentID);
       break;
     case 9:
-      addFaculty();
+      Faculty f1 = addFaculty();
+      Transaction t3 = Transaction("delete", f1);
+      rb->push(t3);
       break;
     case 10:
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
+      Faculty f2 = getFaculty(facultyID);
+      Transaction t4 = Transaction("add", f2);
+      rb->push(t4);
       deleteFaculty(facultyID);
       break;
     case 11:
@@ -130,6 +140,16 @@ void Simulation::printFaculty(){
   facultyTree->printTree(root);
 }
 
+Student Simulation::getStudent(int id){
+  Student currStudent = studentTree->search(id);
+  return currStudent;
+}
+
+Faculty Simulation::getFaculty(int id){
+  Student currFaculty = FacultyTree->search(id);
+  return currFaculty;
+}
+
 void Simulation::findStudent(int id){
   Student currStudent = studentTree->search(id);
   // cout << id << endl; // should we display their ID number? bc its given
@@ -167,7 +187,7 @@ void Simulation::getAdvisorList(int facultyID){
   }
 }
 
-void Simulation::addStudent(){
+Student Simulation::addStudent(){
   int studentID = 0;
   string name = "";
   string level = "";
@@ -201,7 +221,7 @@ void Simulation::deleteStudent(int studentID){
   // do we need to null the student's node to the advisor before we delete the student?
 }
 
-void Simulation::addFaculty(){
+Faculty Simulation::addFaculty(){
   int facultyID = 0;
   string name = "";
   string level = "";
