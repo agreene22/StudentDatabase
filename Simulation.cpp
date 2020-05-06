@@ -76,24 +76,31 @@ void Simulation::Simulate(int choice){
       getAdvisorList(facultyID);
       break;
     case 7:
+    {
       Student s1 = addStudent();
       Transaction t1 = Transaction("delete", s1);
       rb->push(t1);
       break;
+    }
     case 8:
+    {
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
       Student s2 = getStudent(studentID);
-      Transaction t2 = Transaction("add", s2)
+      Transaction t2 = Transaction("add", s2);
       rb->push(t2);
       deleteStudent(studentID);
       break;
+    }
     case 9:
+    {
       Faculty f1 = addFaculty();
       Transaction t3 = Transaction("delete", f1);
       rb->push(t3);
       break;
+    }
     case 10:
+    {
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
       Faculty f2 = getFaculty(facultyID);
@@ -101,13 +108,16 @@ void Simulation::Simulate(int choice){
       rb->push(t4);
       deleteFaculty(facultyID);
       break;
+    }
     case 11:
+    {
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
       cout << "Enter the new advisor faculty ID number: " << endl;
       cin >> facultyID;
       changeAdvisor(studentID, facultyID);
       break;
+    }
     case 12:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
@@ -146,7 +156,7 @@ Student Simulation::getStudent(int id){
 }
 
 Faculty Simulation::getFaculty(int id){
-  Student currFaculty = FacultyTree->search(id);
+  Faculty currFaculty = facultyTree->search(id);
   return currFaculty;
 }
 
