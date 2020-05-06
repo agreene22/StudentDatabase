@@ -9,7 +9,7 @@
 using namespace std;
 
 // Template class for General Stack which can hold any data type
-template <class T>
+template <typename T>
 class GenStack{
 public:
   GenStack(); // default constructor
@@ -33,7 +33,7 @@ private:
 };
 
 //default constructor
-template <class T>
+template <typename T>
 GenStack<T>::GenStack(){
   myArray = new T[1000]; // initiliazing array to default size 1000
   mSize = 1000; // initializing size to 1000
@@ -41,19 +41,19 @@ GenStack<T>::GenStack(){
 }
 //overloaded constructor
 // initializes values to parameter and top index to -1
-template <class T>
+template <typename T>
 GenStack<T>::GenStack(int maxSize){
   myArray = new T[maxSize]; //on the heap
   mSize = maxSize;
   top = -1;
 }
 
-template <class T>
+template <typename T>
 GenStack<T>::~GenStack(){
   delete myArray; // deletes array pointer
 }
 
-template <class T>
+template <typename T>
 void GenStack<T>::push(T data){
   //checks if full before attempting to push/insert
   if(isFull()){
@@ -67,7 +67,7 @@ void GenStack<T>::push(T data){
   myArray[++top] = data; //pre-increment so it goes from -1 to 0
 }
 
-template <class T>
+template <typename T>
 T GenStack<T>::pop() throw (EmptyStackException){
   //checks if empty before attempting to remove
   // if empty throws EmptyStackException
@@ -78,19 +78,19 @@ T GenStack<T>::pop() throw (EmptyStackException){
 }
 
 // returns top value of stack
-template <class T>
+template <typename T>
 T GenStack<T>::peek(){
   return myArray[top];
 }
 
 // checks if stack is full and returns a boolean
-template <class T>
+template <typename T>
 bool GenStack<T>::isFull(){
   return (top == mSize-1);
 }
 
 // checks if stack is empty and returns a boolean
-template <class T>
+template <typename T>
 bool GenStack<T>::isEmpty(){
   return (top == -1);
 }

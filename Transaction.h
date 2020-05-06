@@ -6,6 +6,7 @@
 class Transaction{
 
 public:
+  Transaction();
   Transaction(string type, Person data);
   string getPersonType();
   string getTransactionType();
