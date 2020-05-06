@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BST.h"
 #include "Faculty.h"
+//#include "Student.h"
 using namespace std;
 
 class Simulation{
@@ -22,7 +23,7 @@ public:
   void addStudent();
   void deleteStudent(int studentID);
   void addFaculty();
-  void deleteFaculty(int facultyID); 
+  void deleteFaculty(int facultyID);
   void changeAdvisor(int studentID, int facultyID);
   // void removeAdvisee(int studentID, int facultyID);
   // void Rollback(); // not sure what this should take in
