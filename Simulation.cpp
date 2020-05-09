@@ -2,18 +2,68 @@
 #include <fstream>
 
 Simulation::Simulation(){
-  studentTree = new BST<Student>();
-  facultyTree = new BST<Faculty>();
+  masterStudent = new BST<Student>();
+  masterFaculty = new BST<Faculty>();
+  rb = new Rollback();
 }
 
 Simulation::~Simulation(){
-  delete studentTree;
-  delete facultyTree;
+  delete masterStudent;
+  delete masterFaculty;
+  delete rb;
 }
 
-void Simulation::setTrees(){
-  Student s1(50,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
-  studentTree->insert(s1.getID(),s1);
+void Simulation::setTrees(){ // This method might not be necessary and could just be our defualt constructor
+  ifstream inFS;
+  int studentID = 0;
+  string name = "";
+  string level = "";
+  string major = "";
+  double gpa = 0.0;
+  int advisorID = 0;
+  string department = "";
+
+  inFS.open("studentTable.txt");
+  if(!inFS.is_open()){
+    // continue;
+  }else{
+    while(!inFS.eof()){
+      // Student s = Student();
+      inFS >> studentID;
+      inFS >> name;
+      inFS >> level;
+      inFS >> major;
+      inFS >> gpa;
+      inFS >> advisorID;
+      if(!inFS.fail()){
+        Student s(studentID,name,level,major,gpa,advisorID);
+        masterStudent->insert(s.getID(),s);
+      }
+    }
+  }
+  inFS.close();
+
+  inFS.open("facultyTable.txt");
+  if(!inFS.is_open()){
+    // continue;
+  }else{
+    while(!inFS.eof()){
+      inFS >> advisorID;
+      inFS >> name;
+      inFS >> level;
+      inFS >> department;
+      if(!inFS.fail()){
+        Faculty f(advisorID,name,level,department,advisees);
+        masterStudent->insert(f.getID(),f);
+      }
+      inFS >> studentID; // HMMMMM
+      // How are the list of advisees being passed?
+      f.addAdvisee(studentID);
+    }
+  }
+  inFS.close();
+  // Student s1(50,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
+  // masterStudent->insert(s1.getID(),s1);
 }
 
 int Simulation::Menu(){ // should come up with more choices because he said we'd get more credit lol
@@ -149,27 +199,27 @@ void Simulation::Simulate(int choice){
 }
 
 void Simulation::printStudents(){
-  TreeNode<Student>* root = studentTree->getRoot();
-  studentTree->printTree(root); // needs to take in root but im not quite sure how to do that
+  TreeNode<Student>* root = masterStudent->getRoot();
+  masterStudent->printTree(root); // needs to take in root but im not quite sure how to do that
 }
 
 void Simulation::printFaculty(){
-  TreeNode<Faculty>* root = facultyTree->getRoot();
-  facultyTree->printTree(root);
+  TreeNode<Faculty>* root = masterFaculty->getRoot();
+  masterFaculty->printTree(root);
 }
 
 Student Simulation::getStudent(int id){
-  Student currStudent = studentTree->search(id);
+  Student currStudent = masterStudent->search(id);
   return currStudent;
 }
 
 Faculty Simulation::getFaculty(int id){
-  Faculty currFaculty = facultyTree->search(id);
+  Faculty currFaculty = masterFaculty->search(id);
   return currFaculty;
 }
 
 void Simulation::findStudent(int id){
-  Student currStudent = studentTree->search(id);
+  Student currStudent = masterStudent->search(id);
   // cout << id << endl; // should we display their ID number? bc its given
   cout << currStudent.getName() << endl;
   cout << currStudent.getLevel() << endl;
@@ -179,7 +229,7 @@ void Simulation::findStudent(int id){
 }
 
 void Simulation::findFaculty(int id){
-  Faculty currFaculty = facultyTree->search(id);
+  Faculty currFaculty = masterFaculty->search(id);
   // cout << id << endl; // should we display their ID number? bc its given
   cout << currFaculty.getName() << endl;
   cout << currFaculty.getLevel() << endl;
@@ -190,17 +240,17 @@ void Simulation::findFaculty(int id){
 
 void Simulation::getStudentAdvisor(int studentID){
   int advisorID = 0;
-  Student currStudent = studentTree->search(studentID);
+  Student currStudent = masterStudent->search(studentID);
   advisorID = currStudent.getAdvisor();
   findFaculty(advisorID);
 }
 
 void Simulation::getAdvisorList(int facultyID){
-  Faculty currFaculty = facultyTree->search(facultyID); // all these searches seem inefficient but I'm not sure how else to do it
+  Faculty currFaculty = masterFaculty->search(facultyID); // all these searches seem inefficient but I'm not sure how else to do it
   DoublyLinkedList<int>* students = currFaculty.getAdvisees();
   for(int i = 0; i < students->getSize(); ++i){
     int studentID = students->accessAtPos(i);
-    Student currStudent = studentTree->search(studentID);
+    Student currStudent = masterStudent->search(studentID);
     findStudent(currStudent.getID());
   }
 }
@@ -228,14 +278,14 @@ Student Simulation::addStudent(){
   cin >> advisor;
 
   Student newStudent(studentID,name,level,major,gpa,advisor);
-  studentTree->insert(studentID,newStudent);
+  masterStudent->insert(studentID,newStudent);
 }
 
 void Simulation::deleteStudent(int studentID){
-  Student currStudent = studentTree->search(studentID);
-  Faculty advisor = facultyTree->search(currStudent.getAdvisor());
+  Student currStudent = masterStudent->search(studentID);
+  Faculty advisor = masterFaculty->search(currStudent.getAdvisor());
   advisor.removeAdvisee(studentID);
-  studentTree->deleteNode(studentID);
+  masterStudent->deleteNode(studentID);
   // do we need to null the student's node to the advisor before we delete the student?
 }
 
@@ -263,33 +313,33 @@ Faculty Simulation::addFaculty(){
   }
 
   Faculty newFaculty(facultyID,name,level,department,advisees);
-  facultyTree->insert(facultyID,newFaculty);
+  masterFaculty->insert(facultyID,newFaculty);
 }
 
 void Simulation::deleteFaculty(int facultyID){
-  Faculty currFaculty = facultyTree->search(facultyID);
+  Faculty currFaculty = masterFaculty->search(facultyID);
   DoublyLinkedList<int>* advisees = currFaculty.getAdvisees();
   for(int i = 0; i < advisees->getSize(); ++i){
     int studentID = advisees->removeFront();
-    Student currStudent = studentTree->search(studentID);
-    if(facultyID == facultyTree->getRoot()->getKey()){
-      int advisorID = facultyTree->getRootLeftChild()->getKey();
+    Student currStudent = masterStudent->search(studentID);
+    if(facultyID == masterFaculty->getRoot()->getKey()){
+      int advisorID = masterFaculty->getRootLeftChild()->getKey();
       currStudent.setAdvisor(advisorID);
     }else{
-      int advisorID = facultyTree->getRoot()->getKey();
+      int advisorID = masterFaculty->getRoot()->getKey();
       currStudent.setAdvisor(advisorID);
     }
   }
-  facultyTree->deleteNode(facultyID);
+  masterFaculty->deleteNode(facultyID);
 }
 
 void Simulation::changeAdvisor(int studentID, int facultyID){
-  Student currStudent = studentTree->search(studentID);
+  Student currStudent = masterStudent->search(studentID);
   int prevAdvisorID = currStudent.getAdvisor();
-  Faculty prevAdvisor = facultyTree->search(prevAdvisorID);
+  Faculty prevAdvisor = masterFaculty->search(prevAdvisorID);
   prevAdvisor.removeAdvisee(studentID);
   currStudent.setAdvisor(facultyID);
-  Faculty newAdvisor = facultyTree->search(facultyID);
+  Faculty newAdvisor = masterFaculty->search(facultyID);
   newAdvisor.addAdvisee(studentID);
 }
 
@@ -297,11 +347,11 @@ void Simulation::removeAdvisee(int studentID, int facultyID){
   Faculty advisor = getFaculty(facultyID);
   advisor.removeAdvisee(studentID);
   Student currStudent = getStudent(studentID);
-  if(facultyID == facultyTree->getRoot()->getKey()){
-    int advisorID = facultyTree->getRootLeftChild()->getKey();
+  if(facultyID == masterFaculty->getRoot()->getKey()){
+    int advisorID = masterFaculty->getRootLeftChild()->getKey();
     currStudent.setAdvisor(advisorID);
   }else{
-    int advisorID = facultyTree->getRoot()->getKey();
+    int advisorID = masterFaculty->getRoot()->getKey();
     currStudent.setAdvisor(advisorID);
   }
 }

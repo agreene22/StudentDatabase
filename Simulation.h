@@ -30,7 +30,7 @@ public:
   void removeAdvisee(int studentID, int facultyID);
   // void Rollback(); // not sure what this should take in
 private:
-  BST<Student>* studentTree; // should this be a pointer/of pointers to students
-  BST<Faculty>* facultyTree; // I feel like I should've made them of pointers rather than just objects but now I'm in a bit deep lmao but we could still change it
-  Rollback* rb = new Rollback();
+  BST<Student>* masterStudent;
+  BST<Faculty>* masterFaculty;
+  Rollback* rb;
 };
