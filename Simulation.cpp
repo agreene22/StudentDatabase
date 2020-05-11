@@ -53,12 +53,12 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       inFS >> level;
       inFS >> department;
       if(!inFS.fail()){
-        Faculty f(advisorID,name,level,department,advisees);
-        masterStudent->insert(f.getID(),f);
+        Faculty f(advisorID,name,level,department);
+        masterFaculty->insert(f.getID(),f);
+        inFS >> studentID; // HMMMMM
+        // How are the list of advisees being passed?
+        f.addAdvisee(studentID);
       }
-      inFS >> studentID; // HMMMMM
-      // How are the list of advisees being passed?
-      f.addAdvisee(studentID);
     }
   }
   inFS.close();

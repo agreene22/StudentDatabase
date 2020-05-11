@@ -8,6 +8,7 @@ class Faculty : public Person {
 
 public:
   Faculty();
+  Faculty(int id, string name, string level, string dept);
   Faculty(int id, string name, string level, string dept, DoublyLinkedList<int>* advisees);
   //advisees needs to be changed to a linkedList
   ~Faculty();
