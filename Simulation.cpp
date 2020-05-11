@@ -181,14 +181,14 @@ void Simulation::Simulate(int choice){
     {
       Transaction t5 = rb->pop();
       if(t5.getPersonType() == "Student"){
-        Student s5 = t5.getPerson();
+        Student s5 = (Student)t5.getPerson();
         if(t5.getTransactionType() == "add"){
           //addStudent() we need a way to add student by object
         }else{
           deleteStudent(s5.getID());
         }
       }else{
-        Faculty f5 = t5.getPerson();
+        Faculty f5 = (Faculty)t5.getPerson();
         if(t5.getTransactionType() == "add"){
           //addFaculty() we need a way to add faculty by object
         }else{
