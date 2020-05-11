@@ -22,3 +22,7 @@ string Transaction::getPersonType(){
 string Transaction::getTransactionType(){
   return m_transactionType;
 }
+
+Person Transaction::getPerson(){
+  return m_person;
+}

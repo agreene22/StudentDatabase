@@ -10,6 +10,7 @@ public:
   Transaction(string type, Person data);
   string getPersonType();
   string getTransactionType();
+  Person getPerson();
 
 
 private:

@@ -165,9 +165,6 @@ void Simulation::Simulate(int choice){
       cin >> studentID;
       cout << "Enter the new advisor faculty ID number: " << endl;
       cin >> facultyID;
-      Student s3 = getStudent(studentID);
-      Faculty f3 = getFaculty(s3.getAdvisor());
-      Transaction t5 = Transaction("changeAdvisor", f3); // i feel like this might need both the student and advisor
       changeAdvisor(studentID, facultyID);
       break;
     }
@@ -177,15 +174,31 @@ void Simulation::Simulate(int choice){
       cin >> studentID;
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
-      Student s4 = getStudent(studentID);
-      Faculty f4 = getFaculty(facultyID);
-      Transaction t6 = Transaction("addAdvisee",f4); // i feel like this might need both the student and advisor
       removeAdvisee(studentID, facultyID);
       break;
     }
     case 13:
-      // Rollback();
+    {
+      Transaction t5 = rb->pop();
+      if(t5.getPersonType() == "Student"){
+        Student s5 = t5.getPerson();
+        if(t5.getTransactionType() == "add"){
+          //addStudent() we need a way to add student by object
+        }else{
+          deleteStudent(s5.getID());
+        }
+      }else{
+        Faculty f5 = t5.getPerson();
+        if(t5.getTransactionType() == "add"){
+          //addFaculty() we need a way to add faculty by object
+        }else{
+          deleteFaculty(f5.getID());
+        }
+      }
+
+
       break;
+    }
     case 14:
       cout << "Exiting program." << endl;
       //here we need to serialize everything to the file
