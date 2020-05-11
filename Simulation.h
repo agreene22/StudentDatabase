@@ -28,6 +28,8 @@ public:
   Student getStudent(int id);
   Faculty getFaculty(int id);
   void removeAdvisee(int studentID, int facultyID);
+  void addStudent(Student s);
+  void addFaculty(Faculty f);
   // void Rollback(); // not sure what this should take in
 private:
   BST<Student>* masterStudent;

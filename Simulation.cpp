@@ -180,23 +180,20 @@ void Simulation::Simulate(int choice){
     case 13:
     {
       Transaction t5 = rb->pop();
+      Person p5 = t5.getPerson();
       if(t5.getPersonType() == "Student"){
         // Student s5 = (Student)t5.getPerson();
-        Person p1 = t5.getPerson();
-        Student s5(p1.getID(),p1.getName(),p1.getLevel());
         if(t5.getTransactionType() == "add"){
           //addStudent() we need a way to add student by object
         }else{
-          deleteStudent(s5.getID());
+          deleteStudent(p5.getID());
         }
       }else{
-        // Faculty f5 = (Faculty)t5.getPerson();
-        Person p2 = t5.getPerson();
-        Faculty f5(p2.getID(),p2.getName(),p2.getLevel());
+        //Faculty f5 = (Faculty)t5.getPerson();
         if(t5.getTransactionType() == "add"){
-          //addFaculty() we need a way to add faculty by object
+          //addFaculty(f5); we need a way to add faculty by object
         }else{
-          deleteFaculty(f5.getID());
+          deleteFaculty(p5.getID());
         }
       }
 
@@ -371,4 +368,12 @@ void Simulation::removeAdvisee(int studentID, int facultyID){
     int advisorID = masterFaculty->getRoot()->getKey();
     currStudent.setAdvisor(advisorID);
   }
+}
+
+void Simulation::addStudent(Student s){
+  masterStudent->insert(s.getID(),s);
+}
+
+void Simulation::addFaculty(Faculty f){
+  masterFaculty->insert(f.getID(),f);
 }
