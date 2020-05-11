@@ -19,6 +19,15 @@ Faculty::Faculty(int id, string name, string level, string dept, DoublyLinkedLis
   m_isStudent = false;
 }
 
+Faculty::Faculty(int id, string name, string level){
+  m_ID = id;
+  m_name = name;
+  m_level = level;
+  m_department = "";
+  m_advisees = new DoublyLinkedList<int>;
+  m_isStudent = false;
+}
+
 Faculty::Faculty(int id, string name, string level, string dept){
   m_ID = id;
   m_name = name;

@@ -7,6 +7,7 @@ class Student : public Person {
 public:
   Student();
   Student(int id, string name, string level, string major, double gpa, int advisor);
+  Student(int id, string name, string level);
   ~Student();
 
   //accessors

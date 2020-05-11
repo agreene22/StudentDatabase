@@ -22,6 +22,16 @@ Student::Student(int id, string name, string level, string major, double gpa, in
   m_isStudent = true;
 }
 
+Student::Student(int id, string name, string level){
+  m_ID = id;
+  m_name = name;
+  m_level = level;
+  m_major = "";
+  m_GPA = 0.0;
+  m_advisor = 0;
+  m_isStudent = true;
+}
+
 Student::~Student(){
 
 }
