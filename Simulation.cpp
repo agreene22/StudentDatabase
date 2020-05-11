@@ -183,19 +183,21 @@ void Simulation::Simulate(int choice){
       Person p5 = t5.getPerson();
       if(t5.getPersonType() == "Student"){
         Student & s5 = static_cast<Student&>(p5);
-        //Student s5 = (Student)t5.getPerson();
         if(t5.getTransactionType() == "add"){
-          addStudent(s5);// we need a way to add student by object
+          addStudent(s5);
+          cout << "Rollback delete from student database." << endl;
         }else{
           deleteStudent(p5.getID());
+          cout << "Rollback insert from student database." << endl;
         }
       }else{
-        //Faculty f5 = (Faculty)t5.getPerson();
         Faculty & f5 = static_cast<Faculty&>(p5);
         if(t5.getTransactionType() == "add"){
-          addFaculty(f5); //we need a way to add faculty by object
+          addFaculty(f5);
+          cout << "Rollback delete from faculty database." << endl;
         }else{
           deleteFaculty(p5.getID());
+          cout << "Rollback insert from faculty database." << endl;
         }
       }
 
