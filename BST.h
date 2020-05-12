@@ -105,7 +105,7 @@ void BST<T>::insert(int key, T value){
 
     while(true){
       parent = curr;
-      if(value.getID() < curr->key){ //i'm really not sure if we should store them at students or pointers
+      if(value.getID() < curr->key){
         //go left
         curr = curr->left;
         if(curr == NULL){
@@ -123,6 +123,7 @@ void BST<T>::insert(int key, T value){
       }
     }
   }
+  // delete node;
 }
 
 template <typename T>

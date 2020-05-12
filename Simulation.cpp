@@ -96,25 +96,26 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       string studentID;
       for(int i = 0; i < stringAdvisees.size(); ++i){
         if(stringAdvisees[i] != ','){
-          cout << stringAdvisees[i] << endl;
+          // cout << stringAdvisees[i] << endl;
           studentID += stringAdvisees[i];
         // }else if(i == (stringAdvisees.size()-2)){
         //   cout << studentID << endl;
         //   int idToAdd = stoi(studentID);
         //   f.addAdvisee(idToAdd);
         }else{
-          cout << "yes" << endl;
-          cout << studentID << endl;
+          // cout << studentID << endl;
           int idToAdd = stoi(studentID);
           f.addAdvisee(idToAdd);
           studentID = "";
         }
 
       }
-      cout << studentID << endl;
+      // cout << studentID << endl;
       int idToAdd = stoi(studentID);
       f.addAdvisee(idToAdd);
+
       masterFaculty->insert(id,f);
+
     }
     // while(!inFS.eof()){
     //   inFS >> advisorID;
@@ -317,19 +318,19 @@ Faculty Simulation::getFaculty(int id){
 void Simulation::findStudent(int id){
   Student currStudent = masterStudent->search(id);
   // cout << id << endl; // should we display their ID number? bc its given
-  cout << currStudent.getName() << endl;
-  cout << currStudent.getLevel() << endl;
-  cout << currStudent.getMajor() << endl;
-  cout << currStudent.getGPA() << endl;
-  cout << currStudent.getAdvisor() << endl;
+  cout << "Name: " << currStudent.getName() << endl;
+  cout << "Level: " << currStudent.getLevel() << endl;
+  cout << "Major: " << currStudent.getMajor() << endl;
+  cout << "GPA: " << currStudent.getGPA() << endl;
+  cout << "Advisor ID: " << currStudent.getAdvisor() << endl;
 }
 
 void Simulation::findFaculty(int id){
   Faculty currFaculty = masterFaculty->search(id);
   // cout << id << endl; // should we display their ID number? bc its given
-  cout << currFaculty.getName() << endl;
-  cout << currFaculty.getLevel() << endl;
-  cout << currFaculty.getDepartment() << endl;
+  cout << "Name: " << currFaculty.getName() << endl;
+  cout << "Level: " << currFaculty.getLevel() << endl;
+  cout << "Department: " << currFaculty.getDepartment() << endl;
   cout << "Faculty's Advisees: " << endl;
   currFaculty.printAdvisees(); // will print their ID numbers
 }
@@ -342,7 +343,7 @@ void Simulation::getStudentAdvisor(int studentID){
 }
 
 void Simulation::getAdvisorList(int facultyID){
-  Faculty currFaculty = masterFaculty->search(facultyID); // all these searches seem inefficient but I'm not sure how else to do it
+  Faculty currFaculty = masterFaculty->search(facultyID);
   DoublyLinkedList<int>* students = currFaculty.getAdvisees();
   for(int i = 0; i < students->getSize(); ++i){
     int studentID = students->accessAtPos(i);
@@ -385,7 +386,6 @@ void Simulation::deleteStudent(int studentID){
   Faculty advisor = masterFaculty->search(currStudent.getAdvisor());
   advisor.removeAdvisee(studentID);
   masterStudent->deleteNode(studentID);
-  // do we need to null the student's node to the advisor before we delete the student?
 }
 
 Faculty Simulation::addFaculty(){

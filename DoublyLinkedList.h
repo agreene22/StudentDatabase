@@ -88,6 +88,7 @@ void DoublyLinkedList<T>::insertFront(T d){
   }
   front = node; // setting front pointer to new node
   size++; // updating size member variable
+  // delete node;
 }
 
 // Insert back function which takes in a pointer to a node
@@ -105,6 +106,7 @@ void DoublyLinkedList<T>::insertBack(T d){
   }
   back = node; // setting back pointer to new node
   size++; // updating size
+  // delete node;
 }
 
 // Remove Front returns a pointer to a node's data

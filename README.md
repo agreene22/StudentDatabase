@@ -9,5 +9,5 @@ Brandon Kleinman
 kleinman@chapman.edu
 
 Sources:
-C++ textbook for operator overloading
-https://stackoverflow.com/questions/11855018/c-inheritance-downcasting
+C++ textbook for operator overloading,
+https://stackoverflow.com/questions/11855018/c-inheritance-downcasting , talked with Lilly Foster
