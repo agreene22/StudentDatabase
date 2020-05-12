@@ -50,27 +50,7 @@ void Simulation::setTrees(){
       Student s(id,name,level,major,gpa,advisorID);
       masterStudent->insert(id,s);
     }
-    // while(!inFS.eof()){
-    //   // Student s = Student();
-    //   // inFS >> studentID;
-    //   inFS >> student;
-    //
-    //
-    //   // if(!inFS.fail()){
-    //     inFS >> name;
-    //   // }
-    //
-    //   inFS >> level;
-    //   inFS >> major;
-    //   inFS >> gpa;
-    //   inFS >> advisorID;
-    //   if(!inFS.fail()){
-    //     cout << "here" << endl;
-    //     Student s(studentID,name,level,major,gpa,advisorID);
-    //     cout << "here 2" << endl;
-    //     masterStudent->insert(s.getID(),s);
-    //   }
-    // }
+
   }
   inFS.close();
 
@@ -90,16 +70,11 @@ void Simulation::setTrees(){
       getline(linestream,stringAdvisees,'\n');
 
       id = stoi(stringID);
-      // cout << name << endl;
-      // cout << level << endl;
-      // cout << department << endl;
-      // cout << stringAdvisees << endl;
       Faculty f(id,name,level,department);
 
       string studentID;
       for(int i = 0; i < stringAdvisees.size(); ++i){
         if(stringAdvisees[i] != ','){
-          // cout << stringAdvisees[i] << endl;
           studentID += stringAdvisees[i];
         }else{
           int idToAdd = stoi(studentID);
@@ -108,22 +83,17 @@ void Simulation::setTrees(){
         }
 
       }
-      // cout << studentID << endl;
       int idToAdd = stoi(studentID);
       f.addAdvisee(idToAdd);
 
-      // cout << "before insert" << endl;
       masterFaculty->insert(id,f);
-      // cout << "here" << endl;
 
     }
   }
   inFS.close();
-  // Student s1(50,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
-  // masterStudent->insert(s1.getID(),s1);
 }
 
-int Simulation::Menu(){ // should come up with more choices because he said we'd get more credit lol
+int Simulation::Menu(){
   int choice = 0;
 
   cout << "Enter the number corresponding to the desired task: " << endl;
@@ -495,6 +465,7 @@ void Simulation::deleteStudent(int studentID){
   Faculty advisor = masterFaculty->search(currStudent.getAdvisor());
   advisor.removeAdvisee(studentID);
   masterStudent->deleteNode(studentID);
+  cout << "Student deleted." << endl;
 }
 
 Faculty Simulation::addFaculty(){
@@ -508,15 +479,45 @@ Faculty Simulation::addFaculty(){
   cout << "Enter the following information: " << endl;
   cout << "Faculty ID: " << endl;;
   cin >> facultyID;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid id: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> facultyID;
+  }
   cout << "Name: " << endl;
   cin >> name;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid name: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> name;
+  }
   cout << "Level: " << endl;
   cin >> level;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid level: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> level;
+  }
   cout << "Department: " << endl;
   cin >> department;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid department: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> department;
+  }
   while(studentID != -1){
     cout << "Advisee ID numbers (enter -1 when done): ";
     cin >> studentID;
+    while(cin.fail()){
+      cout << "Invalid input type. Please enter a valid id: " << endl;
+      cin.clear();
+      cin.ignore();
+      cin >> studentID;
+    }
     advisees->insertBack(studentID);
   }
 
@@ -540,6 +541,7 @@ void Simulation::deleteFaculty(int facultyID){
     }
   }
   masterFaculty->deleteNode(facultyID);
+  cout << "Faculty deleted." << endl;
 }
 
 void Simulation::changeAdvisor(int studentID, int facultyID){
