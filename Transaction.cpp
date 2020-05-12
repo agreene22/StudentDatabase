@@ -10,6 +10,7 @@ Transaction::Transaction(){
 Transaction::Transaction(string type, Person data){
   m_transactionType = type;
   m_person = data;
+  // cout << "in constructor" << endl;
 }
 
 string Transaction::getPersonType(){

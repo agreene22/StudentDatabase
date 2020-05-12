@@ -14,7 +14,7 @@ Simulation::~Simulation(){
   delete rb;
 }
 
-void Simulation::setTrees(){ // This method might not be necessary and could just be our defualt constructor
+void Simulation::setTrees(){ 
   ifstream inFS;
   string student;
   int id;
@@ -209,8 +209,11 @@ void Simulation::Simulate(int choice){
     case 7:
     {
       Student s1 = addStudent();
+      cout << "stack" << endl;
       Transaction t1 = Transaction("delete", s1);
+      cout << "transaction created" << endl;
       rb->push(t1);
+      cout << "pushed" << endl;
       break;
     }
     case 8:
@@ -340,7 +343,7 @@ void Simulation::Simulate(int choice){
 
 void Simulation::printStudents(){
   TreeNode<Student>* root = masterStudent->getRoot();
-  masterStudent->printTree(root); // needs to take in root but im not quite sure how to do that
+  masterStudent->printTree(root);
 }
 
 void Simulation::printFaculty(){
