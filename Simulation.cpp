@@ -98,7 +98,12 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
         if(stringAdvisees[i] != ','){
           cout << stringAdvisees[i] << endl;
           studentID += stringAdvisees[i];
+        // }else if(i == (stringAdvisees.size()-2)){
+        //   cout << studentID << endl;
+        //   int idToAdd = stoi(studentID);
+        //   f.addAdvisee(idToAdd);
         }else{
+          cout << "yes" << endl;
           cout << studentID << endl;
           int idToAdd = stoi(studentID);
           f.addAdvisee(idToAdd);
@@ -106,6 +111,9 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
         }
 
       }
+      cout << studentID << endl;
+      int idToAdd = stoi(studentID);
+      f.addAdvisee(idToAdd);
       masterFaculty->insert(id,f);
     }
     // while(!inFS.eof()){
