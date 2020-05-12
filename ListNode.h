@@ -22,9 +22,9 @@ public:
 // default constructor
 template <typename T>
 ListNode<T>::ListNode(){
-  data = NULL; // initilizing pointers to null
-  next = NULL;
-  prev = NULL;
+  // data = NULL; // initilizing pointers to null
+  // next = NULL;
+  // prev = NULL;
 }
 
 // overloaded constructor
