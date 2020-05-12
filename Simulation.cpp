@@ -24,6 +24,7 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
   double gpa;
   int advisorID;
   string department;
+  DoublyLinkedList<int>* a;
 
 
   inFS.open("studentTable.txt");
@@ -86,10 +87,25 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       getline(linestream,stringID,',');
       getline(linestream,name,',');
       getline(linestream,level,',');
+      getline(linestream,department,',');
       getline(linestream,stringAdvisees,'\n');
 
       id = stoi(stringID);
-      Faculty f(advisorID,name,level,department);
+      string studentID;
+      cout << stringAdvisees << endl;
+      for(int i = 0; i < stringAdvisees.size(); ++i){
+        if(stringAdvisees[i] != ','){
+          cout << stringAdvisees[i] << endl;
+          studentID += stringAdvisees[i];
+        }else{
+          cout << studentID << endl;
+          int idToAdd = stoi(studentID);
+          a->insertFront(idToAdd);
+          studentID = "";
+        }
+
+      }
+      Faculty f(advisorID,name,level,department,a);
       masterFaculty->insert(id,f);
     }
     // while(!inFS.eof()){
@@ -348,7 +364,10 @@ Student Simulation::addStudent(){
   cin >> gpa;
   cout << "Advisor ID number: " << endl;
   cin >> advisor;
-
+  while(masterFaculty->containsKey(advisor) == false && advisor >= 0){
+    cout << "Invalid ID number. Enter an existing Advisor ID number (or -1 to exit): " << endl;
+    cin >> advisor;
+  }
   Student newStudent(studentID,name,level,major,gpa,advisor);
   masterStudent->insert(studentID,newStudent);
 }
