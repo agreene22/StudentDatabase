@@ -24,7 +24,6 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
   double gpa;
   int advisorID;
   string department;
-  DoublyLinkedList<int>* a;
 
 
   inFS.open("studentTable.txt");
@@ -91,8 +90,10 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       getline(linestream,stringAdvisees,'\n');
 
       id = stoi(stringID);
-      string studentID;
       cout << stringAdvisees << endl;
+      Faculty f(advisorID,name,level,department);
+
+      string studentID;
       for(int i = 0; i < stringAdvisees.size(); ++i){
         if(stringAdvisees[i] != ','){
           cout << stringAdvisees[i] << endl;
@@ -100,12 +101,11 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
         }else{
           cout << studentID << endl;
           int idToAdd = stoi(studentID);
-          a->insertFront(idToAdd);
+          f.addAdvisee(idToAdd);
           studentID = "";
         }
 
       }
-      Faculty f(advisorID,name,level,department,a);
       masterFaculty->insert(id,f);
     }
     // while(!inFS.eof()){
