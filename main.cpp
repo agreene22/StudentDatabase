@@ -10,6 +10,7 @@ int main(int argc, char** argv){
   Simulation* sim = new Simulation();
   int choice = 0;
 
+  cout << "ugh" << endl;
   sim->setTrees();
 
   do {

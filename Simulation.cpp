@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include <fstream>
+#include <sstream>
 
 Simulation::Simulation(){
   masterStudent = new BST<Student>();
@@ -15,7 +16,8 @@ Simulation::~Simulation(){
 
 void Simulation::setTrees(){ // This method might not be necessary and could just be our defualt constructor
   ifstream inFS;
-  int studentID;
+  string student;
+  int id;
   string name;
   string level;
   string major;
@@ -23,23 +25,52 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
   int advisorID;
   string department;
 
+
   inFS.open("studentTable.txt");
   if(!inFS.is_open()){
     // continue;
   }else{
-    while(!inFS.eof()){
-      // Student s = Student();
-      inFS >> studentID;
-      inFS >> name;
-      inFS >> level;
-      inFS >> major;
-      inFS >> gpa;
-      inFS >> advisorID;
-      if(!inFS.fail()){
-        Student s(studentID,name,level,major,gpa,advisorID);
-        masterStudent->insert(s.getID(),s);
-      }
+
+    string currLine;
+    while(getline(inFS,currLine)){
+      stringstream  linestream(currLine);
+      string stringID;
+      string stringGPA;
+      string stringAdvisor;
+      getline(linestream,stringID,',');
+      getline(linestream,name,',');
+      getline(linestream,level,',');
+      getline(linestream,major,',');
+      getline(linestream,stringGPA,',');
+      getline(linestream,stringAdvisor,'\n');
+
+      id = stoi(stringID);
+      gpa = stod(stringGPA);
+      advisorID = stoi(stringAdvisor);
+      Student s(id,name,level,major,gpa,advisorID);
+      masterStudent->insert(id,s);
     }
+    // while(!inFS.eof()){
+    //   // Student s = Student();
+    //   // inFS >> studentID;
+    //   inFS >> student;
+    //
+    //
+    //   // if(!inFS.fail()){
+    //     inFS >> name;
+    //   // }
+    //
+    //   inFS >> level;
+    //   inFS >> major;
+    //   inFS >> gpa;
+    //   inFS >> advisorID;
+    //   if(!inFS.fail()){
+    //     cout << "here" << endl;
+    //     Student s(studentID,name,level,major,gpa,advisorID);
+    //     cout << "here 2" << endl;
+    //     masterStudent->insert(s.getID(),s);
+    //   }
+    // }
   }
   inFS.close();
 
@@ -47,28 +78,42 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
   if(!inFS.is_open()){
     // continue;
   }else{
-    while(!inFS.eof()){
-      inFS >> advisorID;
-      inFS >> name;
-      inFS >> level;
-      inFS >> department;
-      DoublyLinkedList<int>* a;
-      // if(!inFS.fail()){
-      //   while(!inFS.fail()){
-      //     inFS >> studentID;
-      //     a->insertFront(studentID);
-      //   }
-      //   a->removeFront();
-        // while(studentID.isDigit()){
-        //
-        // }
-        Faculty f(advisorID,name,level,department,a);
-        masterFaculty->insert(f.getID(),f);
-        // inFS >> studentID; // HMMMMM
-        // How are the list of advisees being passed?
-        // f.addAdvisee(studentID);
-      // }
+    string currLine;
+    while(getline(inFS,currLine)){
+      stringstream  linestream(currLine);
+      string stringID;
+      string stringAdvisees;
+      getline(linestream,stringID,',');
+      getline(linestream,name,',');
+      getline(linestream,level,',');
+      getline(linestream,stringAdvisees,'\n');
+
+      id = stoi(stringID);
+      Faculty f(advisorID,name,level,department);
+      masterFaculty->insert(id,f);
     }
+    // while(!inFS.eof()){
+    //   inFS >> advisorID;
+    //   inFS >> name;
+    //   inFS >> level;
+    //   inFS >> department;
+    //   DoublyLinkedList<int>* a;
+    //   // if(!inFS.fail()){
+    //     while(!inFS.fail()){
+    //       inFS >> studentID;
+    //       a->insertFront(studentID);
+    //     }
+    //     a->removeFront();
+    //     // while(studentID.isDigit()){
+    //     //
+    //     // }
+    //     Faculty f(advisorID,name,level,department,a);
+    //     masterFaculty->insert(f.getID(),f);
+    //     // inFS >> studentID; // HMMMMM
+    //     // How are the list of advisees being passed?
+    //     // f.addAdvisee(studentID);
+    //   // }
+    // }
   }
   inFS.close();
   // Student s1(50,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
