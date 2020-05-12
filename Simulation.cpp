@@ -90,20 +90,18 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       getline(linestream,stringAdvisees,'\n');
 
       id = stoi(stringID);
+      cout << name << endl;
+      cout << level << endl;
+      cout << department << endl;
       cout << stringAdvisees << endl;
-      Faculty f(advisorID,name,level,department);
+      Faculty f(id,name,level,department);
 
       string studentID;
       for(int i = 0; i < (stringAdvisees.size()-1); i++){
         if(stringAdvisees[i] != ','){
           // cout << stringAdvisees[i] << endl;
           studentID += stringAdvisees[i];
-        // }else if(i == (stringAdvisees.size()-2)){
-        //   cout << studentID << endl;
-        //   int idToAdd = stoi(studentID);
-        //   f.addAdvisee(idToAdd);
         }else{
-          // cout << studentID << endl;
           int idToAdd = stoi(studentID);
           f.addAdvisee(idToAdd);
           studentID = "";
@@ -332,7 +330,7 @@ void Simulation::findFaculty(int id){
   cout << "Level: " << currFaculty.getLevel() << endl;
   cout << "Department: " << currFaculty.getDepartment() << endl;
   cout << "Faculty's Advisees: " << endl;
-  currFaculty.printAdvisees(); 
+  currFaculty.printAdvisees();
 }
 
 void Simulation::getStudentAdvisor(int studentID){
