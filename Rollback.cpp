@@ -10,5 +10,5 @@ void Rollback::push(Transaction t){
 }
 
 Transaction Rollback::pop(){
-  m_stack->pop();
+  return m_stack->pop();
 }

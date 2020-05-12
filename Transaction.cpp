@@ -8,9 +8,10 @@ Transaction::Transaction(){
 }
 
 Transaction::Transaction(string type, Person data){
+  //cout << "in transaction constructor2" << endl;
   m_transactionType = type;
   m_person = data;
-  // cout << "in constructor" << endl;
+  //cout << "in transaction constructor2" << endl;
 }
 
 string Transaction::getPersonType(){
@@ -25,5 +26,12 @@ string Transaction::getTransactionType(){
 }
 
 Person Transaction::getPerson(){
+  cout << "Inside get person1" << endl;
   return m_person;
+}
+
+void Transaction::Speak(){
+  cout << "Name" << m_person.getName() << endl;
+  cout << "ID" << m_person.getID() << endl;
+  cout << "Level" << m_person.getLevel() << endl;
 }

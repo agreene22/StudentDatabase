@@ -14,7 +14,7 @@ Simulation::~Simulation(){
   delete rb;
 }
 
-void Simulation::setTrees(){ 
+void Simulation::setTrees(){
   ifstream inFS;
   string student;
   int id;
@@ -209,11 +209,11 @@ void Simulation::Simulate(int choice){
     case 7:
     {
       Student s1 = addStudent();
-      cout << "stack" << endl;
+      //cout << "stack" << endl;
       Transaction t1 = Transaction("delete", s1);
-      cout << "transaction created" << endl;
+      //cout << "transaction created" << endl;
       rb->push(t1);
-      cout << "pushed" << endl;
+      //cout << "pushed" << endl;
       break;
     }
     case 8:
@@ -299,15 +299,18 @@ void Simulation::Simulate(int choice){
     }
     case 13:
     {
+      cout << "Beginning of 13" << endl;
       Transaction t5 = rb->pop();
+      cout << "After pop" << endl;
       Person p5 = t5.getPerson();
+      cout << "After get person" << endl;
       if(t5.getPersonType() == "Student"){
         Student & s5 = static_cast<Student&>(p5);
         if(t5.getTransactionType() == "add"){
           addStudent(s5);
           cout << "Rollback delete from student database." << endl;
         }else{
-          deleteStudent(p5.getID());
+          deleteStudent(s5.getID());
           cout << "Rollback insert from student database." << endl;
         }
       }else{
@@ -316,12 +319,10 @@ void Simulation::Simulate(int choice){
           addFaculty(f5);
           cout << "Rollback delete from faculty database." << endl;
         }else{
-          deleteFaculty(p5.getID());
+          deleteFaculty(f5.getID());
           cout << "Rollback insert from faculty database." << endl;
         }
       }
-
-
       break;
     }
     case 14:
@@ -415,9 +416,9 @@ void Simulation::getAdvisorList(int facultyID){
     int studentID = students->accessAtPos(i);
     cout << studentID << endl;
     Student currStudent = masterStudent->search(studentID);
-    cout << "successful search 2" << endl;
+    //cout << "successful search 2" << endl;
     findStudent(currStudent.getID());
-    cout << "successful search 3" << endl;
+    //cout << "successful search 3" << endl;
   }
 }
 
@@ -486,6 +487,7 @@ Student Simulation::addStudent(){
   masterStudent->insert(studentID,newStudent);
   Faculty newAdvisor = masterFaculty->search(advisor);
   newAdvisor.addAdvisee(studentID);
+  return newStudent;
 }
 
 void Simulation::deleteStudent(int studentID){
@@ -520,6 +522,7 @@ Faculty Simulation::addFaculty(){
 
   Faculty newFaculty(facultyID,name,level,department,advisees);
   masterFaculty->insert(facultyID,newFaculty);
+  return newFaculty;
 }
 
 void Simulation::deleteFaculty(int facultyID){

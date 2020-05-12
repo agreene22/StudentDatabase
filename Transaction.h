@@ -11,6 +11,7 @@ public:
   string getPersonType();
   string getTransactionType();
   Person getPerson();
+  void Speak();
 
 
 private:
