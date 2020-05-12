@@ -94,7 +94,7 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       Faculty f(advisorID,name,level,department);
 
       string studentID;
-      for(int i = 0; i < stringAdvisees.size(); ++i){
+      for(int i = 0; i < (stringAdvisees.size()-1); i++){
         if(stringAdvisees[i] != ','){
           // cout << stringAdvisees[i] << endl;
           studentID += stringAdvisees[i];
@@ -317,7 +317,6 @@ Faculty Simulation::getFaculty(int id){
 
 void Simulation::findStudent(int id){
   Student currStudent = masterStudent->search(id);
-  // cout << id << endl; // should we display their ID number? bc its given
   cout << "Name: " << currStudent.getName() << endl;
   cout << "Level: " << currStudent.getLevel() << endl;
   cout << "Major: " << currStudent.getMajor() << endl;
@@ -327,7 +326,6 @@ void Simulation::findStudent(int id){
 
 void Simulation::findFaculty(int id){
   Faculty currFaculty = masterFaculty->search(id);
-  // cout << id << endl; // should we display their ID number? bc its given
   cout << "Name: " << currFaculty.getName() << endl;
   cout << "Level: " << currFaculty.getLevel() << endl;
   cout << "Department: " << currFaculty.getDepartment() << endl;
@@ -393,7 +391,7 @@ Faculty Simulation::addFaculty(){
   string name = "";
   string level = "";
   string department = "";
-  DoublyLinkedList<int>* advisees;
+  DoublyLinkedList<int>* advisees = new DoublyLinkedList<int>();
   int studentID = 0;
 
   cout << "Enter the following information: " << endl;

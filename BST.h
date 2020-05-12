@@ -153,10 +153,10 @@ T BST<T>::search(int key){
 }
 
 template <typename T>
-bool BST<T>::containsKey(int key){ // may need to return pointer depending on what is in tree
+bool BST<T>::containsKey(int key){
   if(isEmpty()){
-  cout << "Empty Database." << endl;
-  // NEED TO EXIT HERE BUT IDK WHAT TO RETURN
+    cout << "Empty Database." << endl;
+    return false;
   }else{
     //its not an empty tree
     TreeNode<T>* current = root;
@@ -171,6 +171,10 @@ bool BST<T>::containsKey(int key){ // may need to return pointer depending on wh
       if(current == NULL){ // didn't find the value
         return false;
       }
+    }
+
+    if(current == NULL){ // didn't find the value
+      return false;
     }
 
     return true;
