@@ -15,13 +15,13 @@ Simulation::~Simulation(){
 
 void Simulation::setTrees(){ // This method might not be necessary and could just be our defualt constructor
   ifstream inFS;
-  int studentID = 0;
-  string name = "";
-  string level = "";
-  string major = "";
-  double gpa = 0.0;
-  int advisorID = 0;
-  string department = "";
+  int studentID;
+  string name;
+  string level;
+  string major;
+  double gpa;
+  int advisorID;
+  string department;
 
   inFS.open("studentTable.txt");
   if(!inFS.is_open()){
@@ -54,15 +54,15 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       inFS >> department;
       DoublyLinkedList<int>* a;
       // if(!inFS.fail()){
-        // while(!inFS.fail()){
-        //   inFS >> studentID;
-        //   a->insertFront(studentID);
-        // }
-        // a->removeFront();
+      //   while(!inFS.fail()){
+      //     inFS >> studentID;
+      //     a->insertFront(studentID);
+      //   }
+      //   a->removeFront();
         // while(studentID.isDigit()){
         //
         // }
-        Faculty f(advisorID,name,level,department);
+        Faculty f(advisorID,name,level,department,a);
         masterFaculty->insert(f.getID(),f);
         // inFS >> studentID; // HMMMMM
         // How are the list of advisees being passed?
