@@ -114,7 +114,9 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       int idToAdd = stoi(studentID);
       f.addAdvisee(idToAdd);
 
+      cout << "before insert" << endl;
       masterFaculty->insert(id,f);
+      cout << "here" << endl;
 
     }
     // while(!inFS.eof()){
@@ -330,7 +332,7 @@ void Simulation::findFaculty(int id){
   cout << "Level: " << currFaculty.getLevel() << endl;
   cout << "Department: " << currFaculty.getDepartment() << endl;
   cout << "Faculty's Advisees: " << endl;
-  currFaculty.printAdvisees(); // will print their ID numbers
+  currFaculty.printAdvisees(); 
 }
 
 void Simulation::getStudentAdvisor(int studentID){

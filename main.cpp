@@ -1,3 +1,8 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 5 - Student Database
+  Main method to run an instance of the simulation
+ */
 
 // #include "GenStack.h"
 // #include "Student.h"

@@ -1,17 +1,23 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 5 - Student Database
+  Tree Node template class to create a node for a binary search tree
+ */
 #include <iostream>
 using namespace std;
 
 template <typename T>
 class TreeNode{
 public:
+  // constructors
   TreeNode();
   TreeNode(int k);
   TreeNode(int k, T value);
-  ~TreeNode();
-  //virtual ~TreeNode(); -when working with a template class
+  ~TreeNode(); // destructor
 
   int getKey();
 
+  // member variables
   int key;
   T value;
   TreeNode *left;
@@ -19,14 +25,17 @@ public:
 };
 
 //treenode implementation
+
+// default constructor
 template <typename T>
 TreeNode<T>::TreeNode(){
-  key = 0;
+  key = 0; // initialize values to null
   value = NULL;
   left = NULL;
   right = NULL;
 }
 
+// overloaded constructors
 template <typename T>
 TreeNode<T>::TreeNode(int k){
   key = k;
@@ -43,12 +52,15 @@ TreeNode<T>::TreeNode(int k, T v){
   right = NULL;
 }
 
+// destructor
 template <typename T>
 TreeNode<T>::~TreeNode(){
-  delete right;
+  delete right; // delete pointers
   delete left;
 }
 
+
+// Accessor which returns an integer represnting the node's key
 template <typename T>
 int TreeNode<T>::getKey(){
   return key;

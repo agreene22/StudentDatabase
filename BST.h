@@ -93,7 +93,9 @@ void BST<T>::insert(int key, T value){
 
   if(isEmpty()){
     //empty tree
+    cout << "before root" << endl;
     root = node;
+    cout << "after root" << endl;
   }else{
     if(containsKey(key)){
       cout << "value already exists" << endl;
