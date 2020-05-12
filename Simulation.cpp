@@ -90,14 +90,14 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       getline(linestream,stringAdvisees,'\n');
 
       id = stoi(stringID);
-      cout << name << endl;
-      cout << level << endl;
-      cout << department << endl;
-      cout << stringAdvisees << endl;
+      // cout << name << endl;
+      // cout << level << endl;
+      // cout << department << endl;
+      // cout << stringAdvisees << endl;
       Faculty f(id,name,level,department);
 
       string studentID;
-      for(int i = 0; i < (stringAdvisees.size()-1); i++){
+      for(int i = 0; i < stringAdvisees.size(); ++i){
         if(stringAdvisees[i] != ','){
           // cout << stringAdvisees[i] << endl;
           studentID += stringAdvisees[i];
@@ -112,33 +112,11 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       int idToAdd = stoi(studentID);
       f.addAdvisee(idToAdd);
 
-      cout << "before insert" << endl;
+      // cout << "before insert" << endl;
       masterFaculty->insert(id,f);
-      cout << "here" << endl;
+      // cout << "here" << endl;
 
     }
-    // while(!inFS.eof()){
-    //   inFS >> advisorID;
-    //   inFS >> name;
-    //   inFS >> level;
-    //   inFS >> department;
-    //   DoublyLinkedList<int>* a;
-    //   // if(!inFS.fail()){
-    //     while(!inFS.fail()){
-    //       inFS >> studentID;
-    //       a->insertFront(studentID);
-    //     }
-    //     a->removeFront();
-    //     // while(studentID.isDigit()){
-    //     //
-    //     // }
-    //     Faculty f(advisorID,name,level,department,a);
-    //     masterFaculty->insert(f.getID(),f);
-    //     // inFS >> studentID; // HMMMMM
-    //     // How are the list of advisees being passed?
-    //     // f.addAdvisee(studentID);
-    //   // }
-    // }
   }
   inFS.close();
   // Student s1(50,"Anna","Sophomore", "CompSci", 4.0, 5); // I'm not sure if the trees should hold objects or pointers (ik it would be a bitch to change them all to pointers)
@@ -187,21 +165,45 @@ void Simulation::Simulate(int choice){
     case 3:
       cout << "Enter the ID of the student: " << endl;
       cin >> id;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> id;
+      }
       findStudent(id);
       break;
     case 4:
       cout << "Enter the ID of the faculty member: " << endl;
       cin >> id;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> id;
+      }
       findFaculty(id);
       break;
     case 5:
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> studentID;
+      }
       getStudentAdvisor(studentID);
       break;
     case 6:
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> facultyID;
+      }
       getAdvisorList(facultyID);
       break;
     case 7:
@@ -215,6 +217,12 @@ void Simulation::Simulate(int choice){
     {
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> studentID;
+      }
       Student s2 = getStudent(studentID);
       Transaction t2 = Transaction("add", s2);
       rb->push(t2);
@@ -232,6 +240,12 @@ void Simulation::Simulate(int choice){
     {
       cout << "Enter the faculty ID number: " << endl;
       cin >> facultyID;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> facultyID;
+      }
       Faculty f2 = getFaculty(facultyID);
       Transaction t4 = Transaction("add", f2);
       rb->push(t4);
@@ -242,8 +256,20 @@ void Simulation::Simulate(int choice){
     {
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> studentID;
+      }
       cout << "Enter the new advisor faculty ID number: " << endl;
       cin >> facultyID;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> facultyID;
+      }
       changeAdvisor(studentID, facultyID);
       break;
     }
@@ -251,8 +277,20 @@ void Simulation::Simulate(int choice){
     {
       cout << "Enter the student ID number: " << endl;
       cin >> studentID;
-      cout << "Enter the faculty ID number: " << endl;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> studentID;
+      }
+      cout << "Enter the new advisor faculty ID number: " << endl;
       cin >> facultyID;
+      while(cin.fail()){
+        cout << "Invalid input type. Please enter a valid id: " << endl;
+        cin.clear();
+        cin.ignore();
+        cin >> facultyID;
+      }
       removeAdvisee(studentID, facultyID);
       break;
     }
@@ -286,6 +324,11 @@ void Simulation::Simulate(int choice){
     case 14:
       cout << "Exiting program." << endl;
       //here we need to serialize everything to the file
+      // ofstream outFS;
+      //
+      // outFS.open("masterStudent.txt");
+
+      // outFS.close();
       exit(0); // will exit the program
       break;
     default:
@@ -316,6 +359,10 @@ Faculty Simulation::getFaculty(int id){
 }
 
 void Simulation::findStudent(int id){
+  while(!masterStudent->containsKey(id)){
+    cout << "No student with that ID. Please enter a valid student ID: " << endl;
+    cin >> id;
+  }
   Student currStudent = masterStudent->search(id);
   cout << "Name: " << currStudent.getName() << endl;
   cout << "Level: " << currStudent.getLevel() << endl;
@@ -325,6 +372,10 @@ void Simulation::findStudent(int id){
 }
 
 void Simulation::findFaculty(int id){
+  while(!masterFaculty->containsKey(id)){
+    cout << "No faculty with that ID. Please enter a valid student ID: " << endl;
+    cin >> id;
+  }
   Faculty currFaculty = masterFaculty->search(id);
   cout << "Name: " << currFaculty.getName() << endl;
   cout << "Level: " << currFaculty.getLevel() << endl;
@@ -334,6 +385,16 @@ void Simulation::findFaculty(int id){
 }
 
 void Simulation::getStudentAdvisor(int studentID){
+  while(!masterStudent->containsKey(studentID)){
+    cout << "No student with that ID. Please enter a valid student ID: " << endl;
+    cin >> studentID;
+    while(cin.fail()){
+      cout << "Invalid input type. Please enter a valid id: " << endl;
+      cin.clear();
+      cin.ignore();
+      cin >> studentID;
+    }
+  }
   int advisorID = 0;
   Student currStudent = masterStudent->search(studentID);
   advisorID = currStudent.getAdvisor();
@@ -341,12 +402,19 @@ void Simulation::getStudentAdvisor(int studentID){
 }
 
 void Simulation::getAdvisorList(int facultyID){
+  while(!masterFaculty->containsKey(facultyID)){
+    cout << "No student with that ID. Please enter a valid student ID: " << endl;
+    cin >> facultyID;
+  }
   Faculty currFaculty = masterFaculty->search(facultyID);
   DoublyLinkedList<int>* students = currFaculty.getAdvisees();
   for(int i = 0; i < students->getSize(); ++i){
     int studentID = students->accessAtPos(i);
+    cout << studentID << endl;
     Student currStudent = masterStudent->search(studentID);
+    cout << "successful search 2" << endl;
     findStudent(currStudent.getID());
+    cout << "successful search 3" << endl;
   }
 }
 
@@ -361,22 +429,60 @@ Student Simulation::addStudent(){
   cout << "Enter the following information: " << endl;
   cout << "Student ID: " << endl;;
   cin >> studentID;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid id: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> studentID;
+  }
   cout << "Name: " << endl;
   cin >> name;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid name: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> name;
+  }
   cout << "Level: (Freshman, sophomore, junior, senior)" << endl;
   cin >> level;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid input: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> level;
+  }
   cout << "Major: " << endl;
   cin >> major;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid input: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> major;
+  }
   cout << "GPA: " << endl;
   cin >> gpa;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid input: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> gpa;
+  }
   cout << "Advisor ID number: " << endl;
   cin >> advisor;
+  while(cin.fail()){
+    cout << "Invalid input type. Please enter a valid id: " << endl;
+    cin.clear();
+    cin.ignore();
+    cin >> advisor;
+  }
   while(masterFaculty->containsKey(advisor) == false && advisor >= 0){
     cout << "Invalid ID number. Enter an existing Advisor ID number (or -1 to exit): " << endl;
     cin >> advisor;
   }
   Student newStudent(studentID,name,level,major,gpa,advisor);
   masterStudent->insert(studentID,newStudent);
+  Faculty newAdvisor = masterFaculty->search(advisor);
+  newAdvisor.addAdvisee(studentID);
 }
 
 void Simulation::deleteStudent(int studentID){
