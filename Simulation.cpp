@@ -381,3 +381,21 @@ void Simulation::addStudent(Student s){
 void Simulation::addFaculty(Faculty f){
   masterFaculty->insert(f.getID(),f);
 }
+
+string Simulation::SerializeStudents(TreeNode<Student> root){
+  if(root == NULL){
+    return "";
+  }
+  String leftSerialized = Serialize(root.left);
+  String rightSerialized = Serialize(root.right);
+  return root.value + leftSerialized + rightSerialized;
+}
+
+// string Simulation::SerializeFaculty(TreeNode<Faculty> root){
+//   if(root == NULL){
+//     return "";
+//   }
+//   String leftSerialized = Serialize(root.left);
+//   String rightSerialized = Serialize(root.right);
+//   return root.value + leftSerialized + rightSerialized;
+// }

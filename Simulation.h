@@ -30,6 +30,9 @@ public:
   void removeAdvisee(int studentID, int facultyID);
   void addStudent(Student s);
   void addFaculty(Faculty f);
+  string SerializeStudents(TreeNode<Student> root);
+  // string SerializeFaculty(TreeNode<Faculty> root);
+  void deserializeStudent();
   // void Rollback(); // not sure what this should take in
 private:
   BST<Student>* masterStudent;
