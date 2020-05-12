@@ -89,17 +89,16 @@ bool BST<T>::isEmpty(){
 
 template <typename T>
 void BST<T>::insert(int key, T value){
-  int id = value.getID();
-  if(containsKey(id)){
-    cout << "value already exists" << endl;
-    return;
-  }
   TreeNode<T> *node = new TreeNode<T>(key, value);
 
   if(isEmpty()){
     //empty tree
     root = node;
   }else{
+    if(containsKey(key)){
+      cout << "value already exists" << endl;
+      return;
+    }
     //not an empty tree
     TreeNode<T> *curr = root;
     TreeNode<T> *parent;
