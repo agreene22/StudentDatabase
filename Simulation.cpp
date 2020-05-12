@@ -54,15 +54,15 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       inFS >> department;
       DoublyLinkedList<int>* a;
       // if(!inFS.fail()){
-        while(!inFS.fail()){
-          inFS >> studentID;
-          a->insertFront(studentID);
-        }
-        a->removeFront();
+        // while(!inFS.fail()){
+        //   inFS >> studentID;
+        //   a->insertFront(studentID);
+        // }
+        // a->removeFront();
         // while(studentID.isDigit()){
         //
         // }
-        Faculty f(advisorID,name,level,department,a);
+        Faculty f(advisorID,name,level,department);
         masterFaculty->insert(f.getID(),f);
         // inFS >> studentID; // HMMMMM
         // How are the list of advisees being passed?
