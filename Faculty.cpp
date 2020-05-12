@@ -45,7 +45,7 @@ Faculty::Faculty(int id, string name, string level, string dept){
 
 // destructor
 Faculty::~Faculty(){
-  delete m_advisees;
+//   delete m_advisees;
 }
 
 // Accessor returns string representing department
