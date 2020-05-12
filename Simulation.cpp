@@ -53,17 +53,21 @@ void Simulation::setTrees(){ // This method might not be necessary and could jus
       inFS >> level;
       inFS >> department;
       DoublyLinkedList<int>* a;
-      if(!inFS.fail()){
-        inFS >> studentID;
-        while(studentID.isDigit()){
-          a.insertBack(studentID);
+      // if(!inFS.fail()){
+        while(!inFS.fail()){
+          inFS >> studentID;
+          a->insertFront(studentID);
         }
+        a->removeFront();
+        // while(studentID.isDigit()){
+        //
+        // }
         Faculty f(advisorID,name,level,department,a);
         masterFaculty->insert(f.getID(),f);
         // inFS >> studentID; // HMMMMM
         // How are the list of advisees being passed?
         // f.addAdvisee(studentID);
-      }
+      // }
     }
   }
   inFS.close();
@@ -387,14 +391,14 @@ void Simulation::addFaculty(Faculty f){
   masterFaculty->insert(f.getID(),f);
 }
 
-string Simulation::SerializeStudents(TreeNode<Student> root){
-  if(root == NULL){
-    return "";
-  }
-  String leftSerialized = Serialize(root.left);
-  String rightSerialized = Serialize(root.right);
-  return root.value + leftSerialized + rightSerialized;
-}
+// string Simulation::SerializeStudents(TreeNode<Student> root){
+//   if(root == NULL){
+//     return "";
+//   }
+//   String leftSerialized = Serialize(root.left);
+//   String rightSerialized = Serialize(root.right);
+//   return root.value + leftSerialized + rightSerialized;
+// }
 
 // string Simulation::SerializeFaculty(TreeNode<Faculty> root){
 //   if(root == NULL){
