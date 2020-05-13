@@ -307,9 +307,14 @@ void Simulation::Simulate(int choice){
       TreeNode<Student>* studentRoot = masterStudent->getRoot();
       string studentInfo = serializeStudents(studentRoot);
       outFS << studentInfo;
-
-
       outFS.close();
+
+      outFS.open("masterFaculty.txt");
+      TreeNode<Faculty>* facultyRoot = masterFaculty->getRoot();
+      string facultyInfo = SerializeFaculty(facultyRoot);
+      outFS << facultyInfo;
+      outFS.close();
+
       exit(0); // will exit the program
       break;
     }
@@ -589,7 +594,8 @@ string Simulation::serializeStudents(TreeNode<Student>* root){
   }
   Student s = root->value;
   string ret = "";
-  ret += s.getID();
+  string id = to_string(s.getID());
+  ret += id;
   ret += ",";
   ret += s.getName();
   ret += ",";
@@ -597,20 +603,42 @@ string Simulation::serializeStudents(TreeNode<Student>* root){
   ret += ",";
   ret += s.getMajor();
   ret += ",";
-  ret += s.getGPA();
+  string gpa = to_string(s.getGPA());
+  ret += gpa;
   ret += ",";
-  ret += s.getAdvisor();
-  ret += ",";
+  string advisorID = to_string(s.getAdvisor());
+  ret += advisorID;
+  ret += "\n";
   string leftSerialized = serializeStudents(root->left);
   string rightSerialized = serializeStudents(root->right);
-  return ret + leftSerialized + rightSerialized;
+  return (ret + leftSerialized + rightSerialized);
 }
 
-// string Simulation::SerializeFaculty(TreeNode<Faculty> root){
-//   if(root == NULL){
-//     return "";
-//   }
-//   String leftSerialized = Serialize(root.left);
-//   String rightSerialized = Serialize(root.right);
-//   return root.value + leftSerialized + rightSerialized;
-// }
+string Simulation::SerializeFaculty(TreeNode<Faculty>* root){
+  if(root == NULL){
+    return "";
+  }
+  Faculty f = root->value;
+  string ret = "";
+  string id = to_string(f.getID());
+  ret += id;
+  ret += ",";
+  ret += f.getName();
+  ret += ",";
+  ret += f.getLevel();
+  ret += ",";
+  ret += f.getDepartment();
+  ret += ",";
+  DoublyLinkedList<int>* a = f.getAdvisees();
+  for(int i = 0; i < a->getSize(); ++i){
+    string studentID = to_string(a->accessAtPos(i));
+    ret += studentID;
+    if(i != (a->getSize()-1)){
+      ret += ",";
+    }    
+  }
+  ret += "\n";
+  string leftSerialized = SerializeFaculty(root->left);
+  string rightSerialized = SerializeFaculty(root->right);
+  return ret + leftSerialized + rightSerialized;
+}

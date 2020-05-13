@@ -31,7 +31,7 @@ public:
   void addStudent(Student s);
   void addFaculty(Faculty f);
   string serializeStudents(TreeNode<Student>* root);
-  // string SerializeFaculty(TreeNode<Faculty> root);
+  string SerializeFaculty(TreeNode<Faculty>* root);
   // void deserializeStudent();
   // void Rollback(); \
 private:
