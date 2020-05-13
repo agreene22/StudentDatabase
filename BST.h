@@ -1,3 +1,8 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 5 - Student Database
+  Binary Search Tree
+ */
 #include <iostream>
 #include "TreeNode.h"
 using namespace std;

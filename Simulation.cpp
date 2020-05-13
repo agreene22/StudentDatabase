@@ -288,21 +288,21 @@ void Simulation::Simulate(int choice){
       Transaction t5 = rb->pop(); // getting transaction from rollback
       Person p5 = t5.getPerson(); // getting person from the transaction
       if(t5.getPersonType() == "Student"){
-        Student & s5 = static_cast<Student&>(p5);
+        Student & s5 = static_cast<Student&>(p5);//if the person is a student we downcast to student
         if(t5.getTransactionType() == "add"){
-          addStudent(s5);
+          addStudent(s5);//reversing the delete
           cout << "Rollback delete from student database." << endl;
         }else{
-          deleteStudent(s5.getID());
+          deleteStudent(s5.getID());//reversing the insert
           cout << "Rollback insert from student database." << endl;
         }
       }else{
-        Faculty & f5 = static_cast<Faculty&>(p5);
+        Faculty & f5 = static_cast<Faculty&>(p5);//if it is not a student we downcast to faculty
         if(t5.getTransactionType() == "add"){
-          addFaculty(f5);
+          addFaculty(f5);//reversing the delete
           cout << "Rollback delete from faculty database." << endl;
         }else{
-          deleteFaculty(f5.getID());
+          deleteFaculty(f5.getID());//reversing the insert
           cout << "Rollback insert from faculty database." << endl;
         }
       }
@@ -635,13 +635,13 @@ void Simulation::addStudent(Student s){
 void Simulation::addFaculty(Faculty f){
   masterFaculty->insert(f.getID(),f);
 }
-
+//recursive function to get all student info into a string separated by commas
 string Simulation::serializeStudents(TreeNode<Student>* root){
-  if(root == NULL){
+  if(root == NULL){//if the root is null we return an empty string
     return "";
   }
-  Student s = root->value;
-  string ret = "";
+  Student s = root->value;//getting the student object
+  string ret = "";//starting the string which we will return
   string id = to_string(s.getID());
   ret += id;
   ret += ",";
@@ -657,16 +657,17 @@ string Simulation::serializeStudents(TreeNode<Student>* root){
   string advisorID = to_string(s.getAdvisor());
   ret += advisorID;
   ret += "\n";
-  string leftSerialized = serializeStudents(root->left);
+  string leftSerialized = serializeStudents(root->left);//recursive calls
   string rightSerialized = serializeStudents(root->right);
   return (ret + leftSerialized + rightSerialized);
 }
 
+//recursive function to get all faculty info into a string separated by commas
 string Simulation::SerializeFaculty(TreeNode<Faculty>* root){
-  if(root == NULL){
+  if(root == NULL){//if the root is null we return an empty string
     return "";
   }
-  Faculty f = root->value;
+  Faculty f = root->value;//getting the faculty object
   string ret = "";
   string id = to_string(f.getID());
   ret += id;
@@ -686,7 +687,7 @@ string Simulation::SerializeFaculty(TreeNode<Faculty>* root){
     }
   }
   ret += "\n";
-  string leftSerialized = SerializeFaculty(root->left);
+  string leftSerialized = SerializeFaculty(root->left);//recursive calls
   string rightSerialized = SerializeFaculty(root->right);
   return ret + leftSerialized + rightSerialized;
 }
