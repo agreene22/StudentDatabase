@@ -298,11 +298,14 @@ void Simulation::Simulate(int choice){
     case 14:
       cout << "Exiting program." << endl;
       //here we need to serialize everything to the file
-      // ofstream outFS;
-      //
-      // outFS.open("masterStudent.txt");
+      ofstream outFS;
 
-      // outFS.close();
+      outFS.open("masterStudent.txt");
+      TreeNode<Student>* studentRoot = masterStudent->getRoot();
+      SerializeStudents(outFS, studentRoot);
+
+
+      outFS.close();
       exit(0); // will exit the program
       break;
     default:
@@ -575,14 +578,20 @@ void Simulation::addFaculty(Faculty f){
   masterFaculty->insert(f.getID(),f);
 }
 
-// string Simulation::SerializeStudents(TreeNode<Student> root){
-//   if(root == NULL){
-//     return "";
-//   }
-//   String leftSerialized = Serialize(root.left);
-//   String rightSerialized = Serialize(root.right);
-//   return root.value + leftSerialized + rightSerialized;
-// }
+void Simulation::SerializeStudents(ofstream outFS, TreeNode<Student>* root){
+  if(root == NULL){
+    return "";
+  }
+  String leftSerialized = SerializeStudents(root->left);
+  String rightSerialized = SerializeStudents(root->right);
+  outFS << root->getID();
+  outFS << root->getName();
+  outFS << root->getLevel();
+  outFS << root->getMajor();
+  outFS << root->getGPA();
+  outFS << root->getAdvisor();
+  // return root->value + leftSerialized + rightSerialized;
+}
 
 // string Simulation::SerializeFaculty(TreeNode<Faculty> root){
 //   if(root == NULL){
