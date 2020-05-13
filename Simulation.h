@@ -1,16 +1,23 @@
+/* Anna Greene - 2314663
+  Brandon Kleinman - 2291703
+  Assignment 5 - Student Database
+  Simulation class to create an instance of the BST from user file and run methods
+ */
+
 #include <iostream>
 #include "BST.h"
-//#include "Faculty.h"
 #include "Rollback.h"
 using namespace std;
 
 class Simulation{
 public:
-  Simulation();
-  ~Simulation();
+  Simulation(); // constructor
+  Simulation(BST<Student>* students, BST<Faculty>* facultys); // overloaded constructor
+  ~Simulation(); // destructor
 
   void setTrees();
 
+  // aux methods
   int Menu();
   void Simulate(int choice);
 
@@ -32,10 +39,10 @@ public:
   void addFaculty(Faculty f);
   string serializeStudents(TreeNode<Student>* root);
   string SerializeFaculty(TreeNode<Faculty>* root);
-  // void deserializeStudent();
-  // void Rollback(); \
+
 private:
-  BST<Student>* masterStudent;
-  BST<Faculty>* masterFaculty;
+  // member variables
+  BST<Student>* masterStudent; // Tree to hold students
+  BST<Faculty>* masterFaculty; // Tree to hold faculty
   Rollback* rb;
 };
