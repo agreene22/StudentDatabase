@@ -16,4 +16,4 @@ ID number, Name, Level, Department, StudentID StudentID (student ID's separated 
 
 Sources:
 C++ textbook for operator overloading,
-https://stackoverflow.com/questions/11855018/c-inheritance-downcasting , talked with Lily Foster and Ryan Richardson, https://stackoverflow.com/questions/5131647/why-would-we-call-cin-clear-and-cin-ignore-after-reading-input
+https://stackoverflow.com/questions/11855018/c-inheritance-downcasting , talked with Lily Foster and Ryan Richardson, https://stackoverflow.com/questions/5131647/why-would-we-call-cin-clear-and-cin-ignore-after-reading-input, https://en.cppreference.com/w/cpp/string/basic_string/to_string
