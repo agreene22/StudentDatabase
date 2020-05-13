@@ -305,7 +305,8 @@ void Simulation::Simulate(int choice){
 
       outFS.open("masterStudent.txt");
       TreeNode<Student>* studentRoot = masterStudent->getRoot();
-      SerializeStudents(outFS, studentRoot);
+      string studentInfo = serializeStudents(studentRoot);
+      outFS << studentInfo;
 
 
       outFS.close();
@@ -582,7 +583,7 @@ void Simulation::addFaculty(Faculty f){
   masterFaculty->insert(f.getID(),f);
 }
 
-string Simulation::SerializeStudents(TreeNode<Student>* root){
+string Simulation::serializeStudents(TreeNode<Student>* root){
   if(root == NULL){
     return "";
   }
@@ -600,8 +601,8 @@ string Simulation::SerializeStudents(TreeNode<Student>* root){
   ret += ",";
   ret += s.getAdvisor();
   ret += ",";
-  string leftSerialized = SerializeStudents(root->left);
-  string rightSerialized = SerializeStudents(root->right);
+  string leftSerialized = serializeStudents(root->left);
+  string rightSerialized = serializeStudents(root->right);
   return ret + leftSerialized + rightSerialized;
 }
 

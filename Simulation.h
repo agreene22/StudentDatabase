@@ -30,7 +30,7 @@ public:
   void removeAdvisee(int studentID, int facultyID);
   void addStudent(Student s);
   void addFaculty(Faculty f);
-  string SerializeStudents(TreeNode<Student>* root);
+  string serializeStudents(TreeNode<Student>* root);
   // string SerializeFaculty(TreeNode<Faculty> root);
   // void deserializeStudent();
   // void Rollback(); \
