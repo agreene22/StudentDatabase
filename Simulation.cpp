@@ -296,6 +296,9 @@ void Simulation::Simulate(int choice){
       break;
     }
     case 14:
+    {
+
+
       cout << "Exiting program." << endl;
       //here we need to serialize everything to the file
       ofstream outFS;
@@ -308,6 +311,7 @@ void Simulation::Simulate(int choice){
       outFS.close();
       exit(0); // will exit the program
       break;
+    }
     default:
       cout << "Invalid input please try again." << endl;
       exit(1);
@@ -578,19 +582,27 @@ void Simulation::addFaculty(Faculty f){
   masterFaculty->insert(f.getID(),f);
 }
 
-void Simulation::SerializeStudents(ofstream outFS, TreeNode<Student>* root){
+string Simulation::SerializeStudents(TreeNode<Student>* root){
   if(root == NULL){
     return "";
   }
-  String leftSerialized = SerializeStudents(root->left);
-  String rightSerialized = SerializeStudents(root->right);
-  outFS << root->getID();
-  outFS << root->getName();
-  outFS << root->getLevel();
-  outFS << root->getMajor();
-  outFS << root->getGPA();
-  outFS << root->getAdvisor();
-  // return root->value + leftSerialized + rightSerialized;
+  Student s = root->value;
+  string ret = "";
+  ret += s.getID();
+  ret += ",";
+  ret += s.getName();
+  ret += ",";
+  ret += s.getLevel();
+  ret += ",";
+  ret += s.getMajor();
+  ret += ",";
+  ret += s.getGPA();
+  ret += ",";
+  ret += s.getAdvisor();
+  ret += ",";
+  string leftSerialized = SerializeStudents(root->left);
+  string rightSerialized = SerializeStudents(root->right);
+  return ret + leftSerialized + rightSerialized;
 }
 
 // string Simulation::SerializeFaculty(TreeNode<Faculty> root){
